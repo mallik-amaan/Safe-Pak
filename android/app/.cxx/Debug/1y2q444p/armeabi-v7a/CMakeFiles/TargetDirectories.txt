@@ -1,0 +1,2 @@
+/home/amaan/MAD Project/Criminal-Catcher/android/app/.cxx/Debug/1y2q444p/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/amaan/MAD Project/Criminal-Catcher/android/app/.cxx/Debug/1y2q444p/armeabi-v7a/CMakeFiles/rebuild_cache.dir
