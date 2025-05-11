@@ -309,7 +309,7 @@ class _CrimeReportingScreenState extends State<CrimeReportingScreen> {
     return Scaffold(
       appBar: AppBar(
           title: const Text("FIR Reporting"),
-          backgroundColor: Colors.deepPurple),
+          backgroundColor: Theme.of(context).highlightColor),
       body: Form(
         key: _formKey,
         child: Stepper(

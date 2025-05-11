@@ -22,9 +22,22 @@ void main() async {
 ThemeData appTheme = ThemeData(
   primaryColor: Colors.black,
   highlightColor: Colors.white,
-  shadowColor: Colors.green
+  shadowColor: Colors.green,
+  primarySwatch: Colors.grey,
+  colorScheme: ColorScheme.fromSwatch(
+    primarySwatch: Colors.grey,
+    accentColor: Colors.indigo,
+  ),
+  scaffoldBackgroundColor: Colors.grey[100],
+  textTheme: const TextTheme(
+    bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
+    bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
+    bodySmall: TextStyle(fontSize: 12, color: Colors.black87),
+    headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+    headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+    headlineSmall: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+  ),
 );
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

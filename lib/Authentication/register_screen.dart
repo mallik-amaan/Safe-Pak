@@ -106,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Icon(Icons.person_add, size: 80, color: Colors.white),
                   SizedBox(height: 10),
                   Text(
-                    "Join Criminal Catcher",
+                    "Join Safe Pak",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
