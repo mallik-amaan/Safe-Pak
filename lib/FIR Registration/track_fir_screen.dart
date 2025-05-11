@@ -56,14 +56,6 @@ class _TrackFirScreenState extends State<TrackFirScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Track FIR"),
-        backgroundColor: Colors.deepPurple,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
