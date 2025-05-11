@@ -52,19 +52,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: Text("Profile", style: TextStyle(fontWeight: FontWeight.bold)),
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.deepPurple, Colors.indigo],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -128,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
           child: CircleAvatar(
             radius: 22,
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Theme.of(context).primaryColor,
             child: Icon(Icons.edit, color: Colors.white, size: 20),
           ),
         ),
@@ -153,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           value.isNotEmpty ? value : "Not set",
           style: TextStyle(fontSize: 16),
         ),
-        leading: Icon(Icons.info, color: Colors.deepPurple),
+        leading: Icon(Icons.info, color: Theme.of(context).primaryColor),
       ),
     );
   }
@@ -180,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       label: Text("Update Profile",
           style: TextStyle(fontSize: 16, color: Colors.white)),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

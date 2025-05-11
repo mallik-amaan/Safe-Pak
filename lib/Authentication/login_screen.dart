@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'home_screen.dart';
+import '../Home/home_screen.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
           msg: "Login successful!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.green,
+          backgroundColor: Theme.of(context).primaryColor,
           textColor: Colors.white,
           fontSize: 16.0,
         );
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.black],
+            colors: [Theme.of(context).primaryColor, Theme.of(context).shadowColor],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Icon(Icons.security, size: 80, color: Colors.white),
                   SizedBox(height: 10),
                   Text(
-                    "Welcome to Criminal Catcher",
+                    "Safe-Pak",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: ElevatedButton(
                                     onPressed: _login,
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.deepPurple,
+                                      backgroundColor: Theme.of(context).primaryColor,
                                       padding:
                                           EdgeInsets.symmetric(vertical: 12),
                                       shape: RoundedRectangleBorder(
@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     builder: (context) => RegisterScreen())),
                             child: Text(
                               "Don’t have an account? Register here",
-                              style: TextStyle(color: Colors.deepPurple),
+                              style: TextStyle(color: Theme.of(context).primaryColor),
                             ),
                           ),
                         ],
