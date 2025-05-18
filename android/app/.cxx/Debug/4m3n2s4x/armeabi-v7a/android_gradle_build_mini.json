@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/amaan/Program Files/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/amaan/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/amaan/MAD Project/Criminal-Catcher/android/app/.cxx/Debug/4m3n2s4x/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/amaan/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/amaan/MAD Project/Criminal-Catcher/android/app/.cxx/Debug/4m3n2s4x/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

@@ -1,5 +1,3 @@
-// lib/features/fir/bloc/fir_bloc.dart
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/fir_entity.dart';
@@ -12,7 +10,7 @@ class FIRBloc extends Bloc<FIREvent, FIRState> {
 
   FIRBloc({required this.submitFIRUseCase}) : super(FIRState.initial()) {
     on<FIRComplaintTypeChanged>((event, emit) {
-      emit(state.copyWith(complaintType: event?.complaintType));
+      emit(state.copyWith(complaintType: event.complaintType));
     });
 
     on<FIRDescriptionChanged>((event, emit) {
@@ -28,7 +26,11 @@ class FIRBloc extends Bloc<FIREvent, FIRState> {
     });
 
     on<FIRSubmitRequested>((event, emit) async {
-      emit(state.copyWith(isSubmitting: true, isSuccess: false, errorMessage: null));
+      emit(state.copyWith(
+        isSubmitting: true,
+        isSuccess: false,
+        errorMessage: null,
+      ));
 
       final fir = FIREntity(
         complaintType: state.complaintType,
@@ -41,9 +43,26 @@ class FIRBloc extends Bloc<FIREvent, FIRState> {
       final result = await submitFIRUseCase(fir);
 
       result.fold(
-            (failure) => emit(state.copyWith(isSubmitting: false, errorMessage: failure.message)),
-            (_) => emit(state.copyWith(isSubmitting: false, isSuccess: true)),
+            (failure) {
+          print("Submission failed: $failure");
+          emit(state.copyWith(
+            isSubmitting: false,
+            errorMessage: failure.toString(),
+          ));
+        },
+            (_) {
+          print("Submission successful");
+          emit(state.copyWith(
+            isSubmitting: false,
+            isSuccess: true,
+          ));
+        },
       );
+    });
+
+    // Optional: Reset feedback state (after toast shown)
+    on<ResetFIRFeedback>((event, emit) {
+      emit(state.copyWith(isSuccess: false, errorMessage: null));
     });
   }
 }

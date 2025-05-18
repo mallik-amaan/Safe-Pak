@@ -1,8 +1,7 @@
+import 'package:dartz/dartz.dart';
+import 'package:safepak/core/common/classes/failure.dart';
+import 'package:safepak/features/fir_registration/data/models/fir_model.dart';
 
-import 'package:criminal_catcher/features/fir_registration/data/models/fir_model.dart';
-import 'package:criminal_catcher/features/fir_registration/domain/entities/fir_entity.dart';
-
- abstract class FIRRemoteDataSource{
-  Future<void> submitFIR(FIRModel fir) async {}
-
+abstract class FIRRemoteDataSource {
+ Future<Either<Failure, bool>> submitFIR(FIRModel fir);
 }

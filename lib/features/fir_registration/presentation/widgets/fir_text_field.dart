@@ -19,7 +19,7 @@ class FIRTextField extends StatefulWidget {
     this.controller,
     this.onTap,
     this.readOnly = false,
-    this.suffix,
+    this.suffix, required bool enabled,
   }) : super(key: key);
 
   @override

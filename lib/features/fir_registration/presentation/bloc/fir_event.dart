@@ -43,3 +43,5 @@ class FIREvidenceAdded extends FIREvent {
 }
 
 class FIRSubmitRequested extends FIREvent {}
+
+class ResetFIRFeedback extends FIREvent {}

@@ -49,9 +49,10 @@ class FIRState extends Equatable {
       evidencePaths: evidencePaths ?? this.evidencePaths,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
-      errorMessage: errorMessage,
+      errorMessage: errorMessage ?? this.errorMessage, // FIXED
     );
   }
+
 
   @override
   List<Object?> get props => [

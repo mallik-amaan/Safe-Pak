@@ -1,9 +1,10 @@
-import 'package:criminal_catcher/features/fir_registration/data/models/fir_model.dart';
+import 'package:dartz/dartz.dart';
+import 'package:safepak/core/common/classes/failure.dart';
+import 'package:safepak/features/fir_registration/data/models/fir_model.dart';
 
+import '../../domain/data_sources/fir_remote_data_source.dart';
 import '../../domain/entities/fir_entity.dart';
 import '../../domain/repositories/fir_repository.dart';
-import '../../domain/data_sources/fir_remote_data_source.dart';
-
 
 class FIRRepositoryImpl implements FIRRepository {
   final FIRRemoteDataSource remoteDataSource;
@@ -11,9 +12,8 @@ class FIRRepositoryImpl implements FIRRepository {
   FIRRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<void> submitFIR(FIREntity fir) async {
+  Future<Either<Failure, bool>> submitFIR(FIREntity fir) async {
     final firModel = FIRModel.fromEntity(fir);
-    await remoteDataSource.submitFIR(firModel);
+    return await remoteDataSource.submitFIR(firModel);
   }
-
 }

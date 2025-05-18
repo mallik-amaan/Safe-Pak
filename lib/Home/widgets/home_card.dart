@@ -1,6 +1,7 @@
-import 'package:criminal_catcher/FIR%20Registration/crime_reporting_screen.dart';
-import 'package:criminal_catcher/features/fir_registration/presentation/screens/fir_registration.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../features/fir_registration/presentation/screens/fir_registration.dart';
 
 List<Widget> HomeCards(BuildContext context) {
   final Map<String, dynamic> comps = {
