@@ -3,6 +3,9 @@ import 'package:safepak/Home/home_screen.dart';
 import 'package:safepak/features/authentication/presentation/pages/create_account_page_1.dart';
 import 'package:safepak/features/authentication/presentation/pages/create_account_page_2.dart';
 import 'package:safepak/features/authentication/presentation/pages/success_page.dart';
+import 'package:safepak/features/emeregency_sos/presentation/screens/emergency.dart';
+import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
+import 'package:safepak/features/fir_registration/presentation/screens/fir_registration.dart';
 
 import 'features/authentication/presentation/pages/login_page.dart';
 import 'features/authentication/presentation/pages/register_page.dart';
@@ -24,7 +27,7 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
-     GoRoute(
+    GoRoute(
       path: '/home',
       builder: (context, state) => MainPage(),
     ),
@@ -42,5 +45,18 @@ final GoRouter appRouter = GoRouter(
       path: '/success',
       builder: (context, state) => SuccessPage(),
     ),
+    GoRoute(
+        path: '/emergency',
+        builder: (context, state) => Emergency(),
+        routes: [
+          GoRoute(
+            path: '/emergency_details',
+            builder: (context, state) => EmergencyDetailsScreen(),
+          ),
+        ]),
+    GoRoute(
+      path: '/fir_registration',
+      builder: (context, state) => FirRegistration(),
+    )
   ],
 );

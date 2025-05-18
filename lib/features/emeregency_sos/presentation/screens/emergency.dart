@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
+import 'package:safepak/features/emeregency_sos/presentation/widgets/emergency_contact_tile.dart';
+import 'package:shake/shake.dart';
+
+import '../../../../core/services/shake_detector_service.dart';
+
+class Emergency extends StatefulWidget {
+  const Emergency({super.key});
+
+  @override
+  _EmergencyState createState() => _EmergencyState();
+}
+
+class _EmergencyState extends State<Emergency> {
+  late EmergencyShakeDetector _detector;
+  bool _isShakeDetectionEnabled = false;
+  @override
+  void initState() {
+    super.initState();
+    _detector = EmergencyShakeDetector(
+        shakeThreshold: 3,
+        onShake: () {
+          if (_isShakeDetectionEnabled) _triggerEmergency();
+        });
+    _detector.startListening();
+  }
+
+  @override
+  void dispose() {
+    print("Emergency screen dispose called");
+    super.dispose();
+  }
+
+  void _triggerEmergency() {
+    print("Emergency triggered via button!");
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Emergency action triggered!")),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              "Emergency Mode",
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            Text(
+              "Quick access to emergency services",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Shake Device or Press Button",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Triple shake your device or press and hold the emergency button to trigger alert",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TextButton(
+                        onLongPress: _triggerEmergency,
+                        onPressed: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Press and hold for emergency",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SwitchListTile(
+                tileColor: Colors.grey.shade200,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                value: _isShakeDetectionEnabled,
+                onChanged: (value) {
+                  setState(() {
+                    _isShakeDetectionEnabled = value;
+                  });
+                },
+                title: const Text("Shake Detection"),
+                subtitle: const Text("Triple shake to trigger emergency"),
+                secondary: const Icon(Icons.vibration),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Emergency Contacts",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 8),
+            EmergencyContactTile(
+              name: "Amaan",
+              relation: "Father",
+              phoneNumber: "1234567890",
+            ),
+            TextButton(
+              child: Text("Edit Emergency Contacts"),
+              onPressed: () {
+                // Navigate to the emergency contacts screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmergencyDetailsScreen(),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

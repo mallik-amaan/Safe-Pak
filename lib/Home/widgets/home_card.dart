@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:safepak/features/emeregency_sos/presentation/screens/emergency.dart';
 
 import '../../features/fir_registration/presentation/screens/fir_registration.dart';
 
@@ -30,6 +31,9 @@ List<Widget> HomeCards(BuildContext context) {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => FirRegistration()));
         } else if (entry.key == "Emergency") {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => Emergency()));
+
         } else if (entry.key == "Alerts") {}
       },
       child: Card(
