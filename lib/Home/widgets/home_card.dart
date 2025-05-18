@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:safepak/features/criminal_alert/presentation/screens/criminal_alert.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency.dart';
 
 import '../../features/fir_registration/presentation/screens/fir_registration.dart';
@@ -33,8 +33,10 @@ List<Widget> HomeCards(BuildContext context) {
         } else if (entry.key == "Emergency") {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => Emergency()));
-
-        } else if (entry.key == "Alerts") {}
+        } else if (entry.key == "Alerts") {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => CriminalAlert()));
+        }
       },
       child: Card(
         elevation: 1,
