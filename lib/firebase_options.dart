@@ -51,11 +51,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCA7imVkti6_zlBf7XTDTadjINN5tY-SG8',
-    appId: '1:1063175917211:android:6f5ec967d80cd6e6e3003e',
-    messagingSenderId: '1063175917211',
-    projectId: 'criminal-catcher',
-    storageBucket: 'criminal-catcher.firebasestorage.app',
+    apiKey: 'AIzaSyBvnQk2QYZQEy5dmKA17KDQXhc1EaK-tsU',
+    appId: '1:1075680032259:android:b2549c4d9d5c9620288036',
+    messagingSenderId: '1075680032259',
+    projectId: 'safe-pak',
+    storageBucket: 'safe-pak.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

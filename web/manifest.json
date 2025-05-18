@@ -1,6 +1,6 @@
 {
-    "name": "criminal_catcher",
-    "short_name": "criminal_catcher",
+    "name": "safepak",
+    "short_name": "safepak",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

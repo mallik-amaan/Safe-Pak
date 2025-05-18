@@ -1,21 +1,40 @@
 {
   "project_info": {
-    "project_number": "1063175917211",
-    "project_id": "criminal-catcher",
-    "storage_bucket": "criminal-catcher.firebasestorage.app"
+    "project_number": "1075680032259",
+    "project_id": "safe-pak",
+    "storage_bucket": "safe-pak.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1063175917211:android:6f5ec967d80cd6e6e3003e",
+        "mobilesdk_app_id": "1:1075680032259:android:26fce57959a537ca288036",
         "android_client_info": {
-          "package_name": "com.example.criminal_catcher"
+          "package_name": "com.example.safepak"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCA7imVkti6_zlBf7XTDTadjINN5tY-SG8"
+          "current_key": "AIzaSyBvnQk2QYZQEy5dmKA17KDQXhc1EaK-tsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075680032259:android:b2549c4d9d5c9620288036",
+        "android_client_info": {
+          "package_name": "com.sakepak.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvnQk2QYZQEy5dmKA17KDQXhc1EaK-tsU"
         }
       ],
       "services": {
