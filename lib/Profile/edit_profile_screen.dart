@@ -78,9 +78,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 140),
         child: Column(
           children: [
+            Text(
+              "Edit Profile",
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
             _buildTextField("Full Name", _nameController, Icons.person),
             _buildTextField("Address", _addressController, Icons.home),
             _buildTextField("Gender", _genderController, Icons.wc),
@@ -110,7 +114,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.5),
+            borderSide:
+                BorderSide(color: Theme.of(context).primaryColor, width: 1.5),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
@@ -118,7 +123,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+            borderSide:
+                BorderSide(color: Theme.of(context).primaryColor, width: 2),
           ),
         ),
       ),

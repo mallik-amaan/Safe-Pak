@@ -19,9 +19,15 @@ void main() async {
     print("Firebase initialization failed: $e");
   }
   initializeDependencies();
-  
+
   runApp(const MyApp());
 }
+
+ThemeData appTheme = ThemeData(
+  primaryColor: Colors.black,
+  highlightColor: Colors.white,
+  shadowColor: Colors.green
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
