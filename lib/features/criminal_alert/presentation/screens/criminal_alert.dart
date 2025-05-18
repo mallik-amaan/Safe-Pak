@@ -39,7 +39,7 @@ class CriminalAlert extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Criminal Alert",
+                  "Criminal Alerts",
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 Text("Nearby suspicious activities",

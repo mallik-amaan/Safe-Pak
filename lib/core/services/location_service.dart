@@ -41,4 +41,38 @@ class LocationService {
     print("Placemark: ${placemarks.first}");
     return placemarks.isNotEmpty ? placemarks.first : null;
   }
+
+  Future<Position?> getCurrentPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    print("Getting current location...");
+    // Check if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled.
+      return null;
+    }
+
+    // Check for location permissions.
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied.
+        return null;
+      }
+    }
+    print("Permission granted: $permission");
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever.
+      return null;
+    }
+
+    // Get the current position.
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    return position;
+   
+  }
 }

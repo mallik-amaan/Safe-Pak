@@ -65,6 +65,7 @@ dependencies:
   shake: ^3.0.0
   sensors_plus: ^6.1.1
   home_widget: ^0.7.0+1
+  telephony: ^0.2.0
 
 dev_dependencies:
   flutter_test:

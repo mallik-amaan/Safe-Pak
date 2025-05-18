@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:safepak/core/services/location_service.dart';
+import 'package:safepak/core/services/send_sms_service.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
 import 'package:safepak/features/emeregency_sos/presentation/widgets/emergency_contact_tile.dart';
 import 'package:shake/shake.dart';
@@ -33,10 +35,18 @@ class _EmergencyState extends State<Emergency> {
     super.dispose();
   }
 
-  void _triggerEmergency() {
-    print("Emergency triggered via button!");
+  void _triggerEmergency() async {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Emergency action triggered!")),
+    );
+    LocationService locationService = LocationService();
+    var position = await locationService.getCurrentPosition();
+    await sendSmsAutomatically(
+      "1234567890",
+      "Emergency! Please help! My location is: https://www.google.com/maps/search/?api=1&query=${position?.latitude},${position?.longitude}",
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Emergency action completed`!")),
     );
   }
 
