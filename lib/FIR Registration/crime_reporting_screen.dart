@@ -98,7 +98,7 @@ class _CrimeReportingScreenState extends State<CrimeReportingScreen> {
     }
   }
 
-  Future<void> _getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     Fluttertoast.showToast(msg: 'Getting location...');
 
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -193,7 +193,7 @@ class _CrimeReportingScreenState extends State<CrimeReportingScreen> {
               _buildFormTextField(details, 'Complete details of the event'),
               const SizedBox(height: 10),
               ElevatedButton.icon(
-                onPressed: _getCurrentLocation,
+                onPressed: getCurrentLocation,
                 icon: Icon(Icons.location_on),
                 label: Text("Get Current Location"),
               ),

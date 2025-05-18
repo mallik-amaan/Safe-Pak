@@ -1,5 +1,5 @@
 import 'package:criminal_catcher/FIR%20Registration/crime_reporting_screen.dart';
-import 'package:criminal_catcher/FIR%20Registration/fir_registration.dart';
+import 'package:criminal_catcher/features/fir_registration/presentation/screens/fir_registration.dart';
 import 'package:flutter/material.dart';
 
 List<Widget> HomeCards(BuildContext context) {
@@ -26,8 +26,8 @@ List<Widget> HomeCards(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (entry.key == "FIR") {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => CrimeReportingScreen()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => FirRegistration()));
         } else if (entry.key == "Emergency") {
         } else if (entry.key == "Alerts") {}
       },
