@@ -10,25 +10,21 @@ class EmergencyDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Column(
-            children: [
-              Text(
-                "Emergency Contacts",
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              Text(
-                "Add trusted contacts for emergencies",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
-        ),
+        appBar: AppBar(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
+                    Text(
+                "Emergency Contacts",
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              Text(
+                "Add trusted contacts for emergencies",
+                style: Theme.of(context).textTheme.bodyLarge
+              ),
+              const SizedBox(height: 16,),
                 EmergencyContactDetailScreen(
                     icon: Icons.person,
                     controller: nameController,
