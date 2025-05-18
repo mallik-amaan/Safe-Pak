@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../Authentication/login_screen.dart';
+import '../features/authentication/presentation/pages/login_page.dart';
 import '../FIR Registration/crime_reporting_screen.dart';
 import '../FIR Registration/track_fir_screen.dart';
 import '../Notifications/announcement_screen.dart';
@@ -61,6 +61,6 @@ Future<void> _logout(BuildContext context,FirebaseAuth _auth) async {
   await _auth.signOut();
   Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => LoginScreen()),
+    MaterialPageRoute(builder: (context) => LoginPage()),
   );
 }

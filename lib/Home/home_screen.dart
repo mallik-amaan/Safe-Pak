@@ -1,56 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:criminal_catcher/Home/widgets/bottom_navigation.dart';
-import 'package:criminal_catcher/Home/widgets/home_card.dart';
+import 'package:safepak/Home/widgets/bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../Authentication/login_screen.dart';
-import '../FIR Registration/crime_reporting_screen.dart';
+import '../features/authentication/presentation/pages/login_page.dart';
 import '../FIR Registration/track_fir_screen.dart';
 import '../Notifications/announcement_screen.dart';
 import '../Notifications/update_screen.dart';
-import '../Profile/edit_profile_screen.dart';
 import '../Profile/profile_screen.dart';
 import 'home_page.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: Colors.grey[100],
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.deepPurple,
-          accentColor: Colors.indigo,
-        ),
-        highlightColor: Colors.white,
-        shadowColor: Colors.grey.withOpacity(0.5),
-      ),
-      home: HomeScreen(
-        username: "Loading...",
-        email: "Loading...",
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  final String username;
-  final String email;
-
-  const HomeScreen({required this.username, required this.email, Key? key})
-      : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainPageState extends State<MainPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   int _selectedIndex = 0;
@@ -107,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await _auth.signOut();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 

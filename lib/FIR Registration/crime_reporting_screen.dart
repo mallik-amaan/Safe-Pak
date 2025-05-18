@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 
 class CrimeReportingScreen extends StatefulWidget {
   @override
@@ -98,42 +97,42 @@ class _CrimeReportingScreenState extends State<CrimeReportingScreen> {
     }
   }
 
-  Future<void> _getCurrentLocation() async {
-    Fluttertoast.showToast(msg: 'Getting location...');
+  // Future<void> _getCurrentLocation() async {
+  //   Fluttertoast.showToast(msg: 'Getting location...');
 
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      Fluttertoast.showToast(msg: 'Location services are disabled.');
-      return;
-    }
+  //   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     Fluttertoast.showToast(msg: 'Location services are disabled.');
+  //     return;
+  //   }
 
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        Fluttertoast.showToast(msg: 'Location permissions are denied.');
-        return;
-      }
-    }
+  //   LocationPermission permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       Fluttertoast.showToast(msg: 'Location permissions are denied.');
+  //       return;
+  //     }
+  //   }
 
-    if (permission == LocationPermission.deniedForever) {
-      Fluttertoast.showToast(
-          msg: 'Location permissions are permanently denied.');
-      return;
-    }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     Fluttertoast.showToast(
+  //         msg: 'Location permissions are permanently denied.');
+  //     return;
+  //   }
 
-    try {
-      final position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      setState(() {
-        latitude = position.latitude;
-        longitude = position.longitude;
-      });
-      Fluttertoast.showToast(msg: 'Location Captured!');
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Failed to get location.');
-    }
-  }
+  //   try {
+  //     final position = await Geolocator.getCurrentPosition(
+  //         desiredAccuracy: LocationAccuracy.high);
+  //     setState(() {
+  //       latitude = position.latitude;
+  //       longitude = position.longitude;
+  //     });
+  //     Fluttertoast.showToast(msg: 'Location Captured!');
+  //   } catch (e) {
+  //     Fluttertoast.showToast(msg: 'Failed to get location.');
+  //   }
+  // }
 
   List<Step> stepList() => [
         Step(
@@ -193,7 +192,7 @@ class _CrimeReportingScreenState extends State<CrimeReportingScreen> {
               _buildFormTextField(details, 'Complete details of the event'),
               const SizedBox(height: 10),
               ElevatedButton.icon(
-                onPressed: _getCurrentLocation,
+                onPressed: (){},
                 icon: Icon(Icons.location_on),
                 label: Text("Get Current Location"),
               ),

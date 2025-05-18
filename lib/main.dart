@@ -1,9 +1,12 @@
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safepak/app_router.dart';
+import 'package:safepak/core/configs/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Authentication/login_screen.dart'; // Ensure the correct import path
-import 'firebase_options.dart'; // Ensure this file exists
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:safepak/dependency_injection.dart';
+import 'package:safepak/features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,26 +18,28 @@ void main() async {
   } catch (e) {
     print("Firebase initialization failed: $e");
   }
-
+  initializeDependencies();
+  
   runApp(const MyApp());
 }
-
-ThemeData appTheme = ThemeData(
-  primaryColor: Colors.black,
-  highlightColor: Colors.white,
-  shadowColor: Colors.green
-);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Safe Pak',
-      theme: appTheme,
-      home: LoginScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<AuthenticationCubit>(),
+        ),
+      ],
+      child: MaterialApp.router(
+        routerConfig: appRouter,
+        debugShowCheckedModeBanner: false,
+        title: 'Safe Pak',
+        theme: AppTheme.appTheme,
+      ),
     );
   }
 }

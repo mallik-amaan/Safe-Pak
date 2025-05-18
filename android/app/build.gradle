@@ -20,7 +20,7 @@ dependencies {
 }
 
 android {
-    namespace = "com.example.criminal_catcher"
+    namespace = "com.sakepak.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -34,7 +34,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.criminal_catcher"
+        applicationId "com.sakepak.app"
         minSdkVersion 23  // Manually set this to 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutter.versionCode

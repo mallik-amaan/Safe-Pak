@@ -1,4 +1,4 @@
-import 'package:criminal_catcher/Home/widgets/home_card.dart';
+import 'package:safepak/Home/widgets/home_card.dart';
 import 'package:flutter/material.dart';
 
 
