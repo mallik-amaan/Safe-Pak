@@ -3,7 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:safepak/core/common/classes/failure.dart';
 import 'package:safepak/core/common/classes/no_params.dart';
-import 'package:safepak/core/configs/services/user_singleton.dart';
+import 'package:safepak/core/services/upload_service.dart';
+import 'package:safepak/core/services/user_singleton.dart';
 import 'package:safepak/features/authentication/data/source/auth_remote_data_source.dart';
 import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
 
@@ -110,12 +111,13 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
   Future<Either<Failure, UserEntity>> updateUser(UserEntity user) async{
     try{
-    // await UploadFile.uploadFile(user.image!);
+    // await UploadFile.uploadFile(user.image!)
+      String url = await uploadFile(user.image!);
     await firebaseFirestore.collection('users').doc(user.uid).update(
       {'email': user.email,
         'name': user.name,
         'phoneNumber': user.phoneNumber,
-        'imageUrl': user.imageUrl,
+        'imageUrl': url,
         'dob': user.dob,
         'province': user.province,
         'address': user.address,

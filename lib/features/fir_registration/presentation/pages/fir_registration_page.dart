@@ -148,211 +148,209 @@ class _FirRegistrationPageState extends State<FirRegistrationPage> {
           appBar: AppBar(
             title: const Text("File FIR Report"),
           ),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // DropdownButtonFormField<String>(
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return 'Please select a complaint type';
-                      //     }
-                      //     return null;
-                      //   },
-                      //   value: _selectedType,
-                      //   hint: const Text('Select Complaint Type'),
-                      //   items: _complaintTypes,
-                      //   onChanged: isSubmitting
-                      //       ? null
-                      //       : (value) {
-                      //           setState(() {
-                      //             _selectedType = value;
-                      //           });
-                      //         },
-                      //   decoration: InputDecoration(
-                      //     filled: true,
-                      //     fillColor: AppColors.lightGrey,
-                      //     border: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       borderSide: BorderSide.none,
-                      //     ),
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 15),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a description';
-                          }
-                          return null;
-                        },
-                        controller: _descriptionController,
-                        minLines: 5,
-                        maxLines: 5,
-                        enabled: !isSubmitting,
-                        cursorColor: AppColors.primaryColor,
-                        decoration: InputDecoration(
-                          hintText: 'Description',
-                          filled: true,
-                          fillColor: AppColors.lightGrey,
-                          prefixIcon: const Icon(
-                            Icons.warning_amber_outlined,
-                            color: AppColors.secondaryColor,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
+          body: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DropdownButtonFormField<String>(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a complaint type';
+                        }
+                        return null;
+                      },
+                      value: _selectedType,
+                      hint: const Text('Select Complaint Type'),
+                      items: _complaintTypes,
+                      onChanged: isSubmitting
+                          ? null
+                          : (value) {
+                              setState(() {
+                                _selectedType = value;
+                              });
+                            },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.lightGrey,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select a date and time';
-                          }
-                          return null;
-                        },
-                        controller: _dateTimeController,
-                        readOnly: true,
-                        enabled: !isSubmitting,
-                        cursorColor: AppColors.primaryColor,
-                        onTap: () => _selectDateTime(context),
-                        decoration: InputDecoration(
-                          hintText: 'Date and Time',
-                          filled: true,
-                          fillColor: AppColors.lightGrey,
-                          prefixIcon: const Icon(
-                            Icons.date_range,
-                            color: AppColors.secondaryColor,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a description';
+                        }
+                        return null;
+                      },
+                      controller: _descriptionController,
+                      minLines: 5,
+                      maxLines: 5,
+                      enabled: !isSubmitting,
+                      cursorColor: AppColors.primaryColor,
+                      decoration: InputDecoration(
+                        hintText: 'Description',
+                        filled: true,
+                        fillColor: AppColors.lightGrey,
+                        prefixIcon: const Icon(
+                          Icons.warning_amber_outlined,
+                          color: AppColors.secondaryColor,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select a location';
-                          }
-                          return null;
-                        },
-                        controller: _locationController,
-                        readOnly: true,
-                        enabled: !isSubmitting,
-                        cursorColor: AppColors.primaryColor,
-                        decoration: InputDecoration(
-                          hintText: 'Location',
-                          filled: true,
-                          fillColor: AppColors.lightGrey,
-                          prefixIcon: const Icon(
-                            Icons.location_on,
-                            color: AppColors.secondaryColor,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: isSubmitting
-                                ? null
-                                : () async {
-                                    final placemark = await sl<LocationService>()
-                                        .getCurrentLocation();
-                                    if (placemark != null) {
-                                      final location =
-                                          "${placemark.name}, ${placemark.subLocality}, ${placemark.locality}";
-                                      _locationController.text = location;
-                                      Fluttertoast.showToast(
-                                        msg:
-                                            "Location: ${placemark.locality}, ${placemark.country}",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        backgroundColor: AppColors.primaryColor,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    } else {
-                                      Fluttertoast.showToast(
-                                        msg: "Unable to get location",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        backgroundColor: Colors.red,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
-                                    }
-                                  },
-                            icon: const Icon(Icons.my_location),
-                          ),
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a date and time';
+                        }
+                        return null;
+                      },
+                      controller: _dateTimeController,
+                      readOnly: true,
+                      enabled: !isSubmitting,
+                      cursorColor: AppColors.primaryColor,
+                      onTap: () => _selectDateTime(context),
+                      decoration: InputDecoration(
+                        hintText: 'Date and Time',
+                        filled: true,
+                        fillColor: AppColors.lightGrey,
+                        prefixIcon: const Icon(
+                          Icons.date_range,
+                          color: AppColors.secondaryColor,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      GestureDetector(
-                        onTap: isSubmitting ? null : _handleFileUpload,
-                        child: Container(
-                          height: 130,
-                          decoration: BoxDecoration(
-                            color: AppColors.lightGrey,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: AppColors.primaryColor),
-                          ),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.drive_folder_upload_rounded,
-                                  color: AppColors.primaryColor,
-                                  size: 40,
-                                ),
-                                const Text(
-                                  "Tap to upload photo or video",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                if (_evidencePaths.isNotEmpty)
-                                  Text(
-                                    "${_evidencePaths.length} file(s) uploaded",
-                                    style: const TextStyle(
-                                        fontSize: 14, color: Colors.grey),
-                                  ),
-                              ],
-                            ),
-                          ),
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a location';
+                        }
+                        return null;
+                      },
+                      controller: _locationController,
+                      readOnly: true,
+                      enabled: !isSubmitting,
+                      cursorColor: AppColors.primaryColor,
+                      decoration: InputDecoration(
+                        hintText: 'Location',
+                        filled: true,
+                        fillColor: AppColors.lightGrey,
+                        prefixIcon: const Icon(
+                          Icons.location_on,
+                          color: AppColors.secondaryColor,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: isSubmitting
+                              ? null
+                              : () async {
+                                  final placemark = await sl<LocationService>()
+                                      .getCurrentLocation();
+                                  if (placemark != null) {
+                                    final location =
+                                        "${placemark.name}, ${placemark.subLocality}, ${placemark.locality}";
+                                    _locationController.text = location;
+                                    Fluttertoast.showToast(
+                                      msg:
+                                          "Location: ${placemark.locality}, ${placemark.country}",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      backgroundColor: AppColors.primaryColor,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0,
+                                    );
+                                  } else {
+                                    Fluttertoast.showToast(
+                                      msg: "Unable to get location",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0,
+                                    );
+                                  }
+                                },
+                          icon: const Icon(Icons.my_location),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      ButtonWidget(
-                        content: state is FirLoading
-                            ? const Center(
-                                child: LoadingIndicator(
-                                  indicatorType: Indicator.ballPulse,
-                                  colors: [Colors.white],
-                                  strokeWidth: 10,
-                                ),
-                              )
-                            : const Text(
-                                "Submit",
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                    const SizedBox(height: 15),
+                    GestureDetector(
+                      onTap: isSubmitting ? null : _handleFileUpload,
+                      child: Container(
+                        height: 130,
+                        decoration: BoxDecoration(
+                          color: AppColors.lightGrey,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.primaryColor),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.drive_folder_upload_rounded,
+                                color: AppColors.primaryColor,
+                                size: 40,
                               ),
-                        onPressed: () {
-                          if (isSubmitting) return;
-                          if (_formKey.currentState?.validate() == true) {
-                            _handleSubmit();
-                          }
-                        },
+                              const Text(
+                                "Tap to upload photo or video",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              if (_evidencePaths.isNotEmpty)
+                                Text(
+                                  "${_evidencePaths.length} file(s) uploaded",
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 20),
+                    ButtonWidget(
+                      content: state is FirLoading
+                          ? const Center(
+                              child: LoadingIndicator(
+                                indicatorType: Indicator.ballPulse,
+                                colors: [Colors.white],
+                                strokeWidth: 10,
+                              ),
+                            )
+                          : const Text(
+                              "Submit",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                      onPressed: () {
+                        if (isSubmitting) return;
+                        if (_formKey.currentState?.validate() == true) {
+                          _handleSubmit();
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

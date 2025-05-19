@@ -12,14 +12,13 @@ class AppTheme {
       ),
       highlightColor: AppColors.primaryColor,
       shadowColor: AppColors.secondaryColor,
-      
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundColor,
         iconTheme: IconThemeData(color: AppColors.primaryColor),
         titleTextStyle: TextStyle(
           color: AppColors.primaryColor,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
+          fontSize: 20
         ),
       ),
   );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -27,9 +26,12 @@ List<Widget> homeCards(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (entry.key == "FIR") {
-          context.push('/home/fir_registration');
+          context.push('/fir_registration');
         } else if (entry.key == "Emergency") {
-        } else if (entry.key == "Alerts") {}
+         context.push('/emergency');
+        } else if (entry.key == "Alerts") {
+          context.push('/criminal_alert');
+        }
       },
       child: Card(
         elevation: 1,

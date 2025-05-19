@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:safepak/core/common/classes/failure.dart';
 import 'package:safepak/core/common/classes/no_params.dart';
-import 'package:safepak/core/configs/services/user_singleton.dart';
+import 'package:safepak/core/services/upload_service.dart';
+import 'package:safepak/core/services/user_singleton.dart';
 import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
 import 'package:safepak/features/fir_registration/data/models/fir_model.dart';
 import 'package:safepak/features/fir_registration/domain/entities/fir_entity.dart';
@@ -16,11 +19,20 @@ class FirRemoteDataSourceImpl extends FirRemoteDataSource {
   @override
   Future<Either<Failure, NoParams>> submitFIR(FIREntity fir) async {
     try {
+      List<String> images = [];
+      for (var filePath in fir.evidencePaths!){
+        File file = File(filePath);
+        String imageUrl = await uploadFile(file);
+        images.add(imageUrl);
+      }
       UserEntity user = UserSingleton().user!;
       Map<String, dynamic> data = FIRModel.fromEntity(fir).toMap();
+      data['evidencePaths'] = images;
       data.addAll({
         'user_id': user.uid,
-        'created_at': DateTime.now(),
+        'user_name': user.name,
+        'user_email': user.email,
+        'user_phone': user.phoneNumber,
       });
       await firebaseFireStore.collection('fir_reports').add(data);
       return const Right(NoParams());

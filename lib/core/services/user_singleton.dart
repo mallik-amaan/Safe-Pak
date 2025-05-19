@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../../features/authentication/data/models/user_model.dart';
-import '../../../features/authentication/domain/entities/user_entity.dart';
+import '../../features/authentication/data/models/user_model.dart';
+import '../../features/authentication/domain/entities/user_entity.dart';
 
 class UserSingleton {
   static final UserSingleton _instance = UserSingleton._internal();

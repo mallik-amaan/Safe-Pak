@@ -2,6 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:safepak/features/authentication/presentation/pages/create_account_page_1.dart';
 import 'package:safepak/features/authentication/presentation/pages/create_account_page_2.dart';
 import 'package:safepak/features/authentication/presentation/pages/success_page.dart';
+import 'package:safepak/features/criminal_alert/presentation/screens/criminal_alert.dart';
+import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_page.dart';
+import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
 import 'package:safepak/features/fir_registration/presentation/pages/fir_registration_page.dart';
 import 'package:safepak/features/home/pages/main_page.dart';
 
@@ -25,12 +28,10 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
-    GoRoute(path: '/home', builder: (context, state) => MainPage(), routes: [
-      GoRoute(
-        path: '/fir_registration',
-        builder: (context, state) => FirRegistrationPage()
-      ),
-    ]),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => MainPage(),
+    ),
     GoRoute(
       path: '/create_account_page_1',
       builder: (context, state) => CreateAccountPage1(),
@@ -44,6 +45,23 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/success',
       builder: (context, state) => SuccessPage(),
+    ),
+    GoRoute(
+        path: '/emergency',
+        builder: (context, state) => EmergencyPage(),
+        routes: [
+          GoRoute(
+            path: '/emergency_details',
+            builder: (context, state) => EmergencyDetailsScreen(),
+          ),
+        ]),
+    GoRoute(
+      path: '/fir_registration',
+      builder: (context, state) => FirRegistrationPage(),
+    ),
+    GoRoute(
+      path: '/criminal_alert',
+      builder: (context, state) => CriminalAlertPage(),
     ),
   ],
 );
