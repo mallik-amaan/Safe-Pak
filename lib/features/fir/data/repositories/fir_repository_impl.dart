@@ -4,7 +4,7 @@ import 'package:safepak/core/common/classes/failure.dart';
 
 import 'package:safepak/core/common/classes/no_params.dart';
 
-import 'package:safepak/features/fir_registration/domain/entities/fir_entity.dart';
+import 'package:safepak/features/fir/domain/entities/fir_entity.dart';
 
 import '../../../../dependency_injection.dart';
 import '../../domain/repositories/fir_repository.dart';

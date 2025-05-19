@@ -10,7 +10,7 @@ Future<void> sendSmsAutomatically(
   if (permissionsGranted ?? false) {
     telephony.sendSms(
       to: phoneNumber,
-      message: "Emergency! Please help! My location is: $locationMessage",
+      message: locationMessage,
     );
   }
 }

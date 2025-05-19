@@ -5,7 +5,7 @@ import 'package:safepak/features/authentication/presentation/pages/success_page.
 import 'package:safepak/features/criminal_alert/presentation/screens/criminal_alert.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_page.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
-import 'package:safepak/features/fir_registration/presentation/pages/fir_registration_page.dart';
+import 'package:safepak/features/fir/presentation/pages/fir_registration_page.dart';
 import 'package:safepak/features/home/pages/main_page.dart';
 
 import 'features/authentication/presentation/pages/login_page.dart';

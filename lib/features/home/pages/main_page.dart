@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:safepak/FIR%20Registration/track_fir_screen.dart';
-import 'package:safepak/Profile/profile_screen.dart';
 import 'package:safepak/core/configs/theme/app_colors.dart';
 import '../../authentication/presentation/pages/profile_page.dart';
 import 'home_page.dart';

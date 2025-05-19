@@ -7,8 +7,8 @@ import 'package:safepak/core/common/classes/no_params.dart';
 import 'package:safepak/core/services/upload_service.dart';
 import 'package:safepak/core/services/user_singleton.dart';
 import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
-import 'package:safepak/features/fir_registration/data/models/fir_model.dart';
-import 'package:safepak/features/fir_registration/domain/entities/fir_entity.dart';
+import 'package:safepak/features/fir/data/models/fir_model.dart';
+import 'package:safepak/features/fir/domain/entities/fir_entity.dart';
 import 'fir_remote_data_source.dart';
 
 class FirRemoteDataSourceImpl extends FirRemoteDataSource {

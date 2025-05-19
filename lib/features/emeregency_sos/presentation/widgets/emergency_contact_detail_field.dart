@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-class EmergencyContactDetailScreen extends StatelessWidget {
+class EmergencyContactDetailField extends StatelessWidget {
   final String label;
   final IconData icon;
   final TextEditingController controller;
-  const EmergencyContactDetailScreen(
+  final String? Function(String?)? validator;
+  const EmergencyContactDetailField(
       {super.key,
       required this.controller,
       required this.label,
+      this.validator,
       required this.icon});
 
   @override
@@ -20,7 +22,8 @@ class EmergencyContactDetailScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
+          validator: validator,
           controller: controller,
           decoration: InputDecoration(
             prefixIcon: Icon(

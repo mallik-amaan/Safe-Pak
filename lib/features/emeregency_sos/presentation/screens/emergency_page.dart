@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safepak/core/services/location_service.dart';
 import 'package:safepak/core/services/send_sms_service.dart';
-import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
 import 'package:safepak/features/emeregency_sos/presentation/widgets/emergency_contact_tile.dart';
 
 import '../../../../core/services/shake_detector_service.dart';
