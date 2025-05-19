@@ -1,20 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../domain/entities/fir_entity.dart';
 
-class FIRModel {
-  final String complaintType;
-  final String description;
-  final DateTime dateTime;
-  final String location;
-  final List<String>? evidencePaths;
-
-  FIRModel({
-    required this.complaintType,
-    required this.description,
-    required this.dateTime,
-    required this.location,
-    this.evidencePaths,
-  });
+class FIRModel extends FIREntity {
+  const FIRModel({super.complaintType,
+      super.description,
+      super.dateTime,
+      super.location,
+      super.evidencePaths});
 
   // Convert Entity → Model
   factory FIRModel.fromEntity(FIREntity entity) {
@@ -27,23 +19,12 @@ class FIRModel {
     );
   }
 
-  // Convert Model → Entity
-  FIREntity toEntity() {
-    return FIREntity(
-      complaintType: complaintType,
-      description: description,
-      dateTime: dateTime,
-      location: location,
-      evidencePaths: evidencePaths,
-    );
-  }
-
   // For saving to Firestore
   Map<String, dynamic> toMap() {
     return {
       'complaintType': complaintType,
       'description': description,
-      'dateTime': Timestamp.fromDate(dateTime),
+      'dateTime': dateTime==null? null:Timestamp.fromDate(dateTime!),
       'location': location,
       'evidencePaths': evidencePaths,
     };

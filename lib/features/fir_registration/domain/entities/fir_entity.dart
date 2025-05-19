@@ -1,15 +1,28 @@
-class FIREntity {
-  final String complaintType;
-  final String description;
-  final DateTime dateTime;
-  final String location;
+import 'package:equatable/equatable.dart';
+
+class FIREntity extends Equatable{
+  final String? complaintType;
+  final String? description;
+  final DateTime? dateTime;
+  final String? location;
   final List<String>? evidencePaths;
 
-  FIREntity({
-    required this.complaintType,
-    required this.description,
-    required this.dateTime,
-    required this.location,
+  const FIREntity({
+    this.complaintType,
+    this.description,
+    this.dateTime,
+    this.location,
     this.evidencePaths,
   });
+  
+  @override
+  List<Object?> get props => [
+    complaintType,
+    description,
+    dateTime,
+    location,
+    evidencePaths
+  ];
+
+  
 }

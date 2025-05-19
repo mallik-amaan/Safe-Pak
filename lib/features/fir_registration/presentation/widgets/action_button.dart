@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-Widget ActionButton(BuildContext context, String actionTitle, Function action) {
+Widget actionButton(BuildContext context, String actionTitle, Function action) {
   return Container(
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(

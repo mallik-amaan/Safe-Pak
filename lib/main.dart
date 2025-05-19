@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safepak/dependency_injection.dart';
 import 'package:safepak/features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
-import 'package:safepak/features/fir_registration/presentation/bloc/fir_bloc.dart';
+import 'package:safepak/features/fir_registration/presentation/cubit/fir_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<AuthenticationCubit>(),
         ),
         BlocProvider(
-          create: (context) => sl<FIRBloc>(),
+          create: (context) => sl<FirCubit>(),
         ),
       ],
       child: MaterialApp.router(

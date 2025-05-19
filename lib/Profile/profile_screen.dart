@@ -26,27 +26,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     _user = _auth.currentUser;
-    _loadUserData();
+    // _loadUserData();
   }
 
-  void _loadUserData() async {
-    if (_user != null) {
-      DocumentSnapshot userDoc =
-          await _firestore.collection("users").doc(_user!.uid).get();
-      if (userDoc.exists) {
-        setState(() {
-          _name = userDoc["name"] ?? "";
-          _address = userDoc["address"] ?? "";
-          _gender = userDoc["gender"] ?? "";
-          _occupation = userDoc["occupation"] ?? "";
-          _nationality = userDoc["nationality"] ?? "";
-          _religion = userDoc["religion"] ?? "";
-          _dob = userDoc["dob"] ?? "";
-          _profileImageUrl = userDoc["profileImage"];
-        });
-      }
-    }
-  }
+  // void _loadUserData() async {
+  //   if (_user != null) {
+  //     DocumentSnapshot userDoc =
+  //         await _firestore.collection("users").doc(_user!.uid).get();
+  //     if (userDoc.exists) {
+  //       setState(() {
+  //         _name = userDoc["name"] ?? "";
+  //         _address = userDoc["address"] ?? "";
+  //         _gender = userDoc["gender"] ?? "";
+  //         _occupation = userDoc["occupation"] ?? "";
+  //         _nationality = userDoc["nationality"] ?? "";
+  //         _religion = userDoc["religion"] ?? "";
+  //         _dob = userDoc["dob"] ?? "";
+  //         _profileImageUrl = userDoc["profileImage"];
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -103,13 +103,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               MaterialPageRoute(
                 builder: (context) => EditProfileScreen(
                   onProfileUpdated: () {
-                    _loadUserData();
+                    // _loadUserData();
                   },
                 ),
               ),
             ).then((updated) {
               if (updated == true) {
-                _loadUserData();
+                // _loadUserData();
               }
             });
           },
@@ -153,13 +153,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           MaterialPageRoute(
             builder: (context) => EditProfileScreen(
               onProfileUpdated: () {
-                _loadUserData();
+                // _loadUserData();
               },
             ),
           ),
         ).then((updated) {
           if (updated == true) {
-            _loadUserData();
+            // _loadUserData();
           }
         });
       },

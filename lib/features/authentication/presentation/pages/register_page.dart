@@ -6,9 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:safepak/core/common/widgets/button_widget.dart';
 import 'package:safepak/features/authentication/domain/entities/sign_in_params.dart';
 import 'package:safepak/features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
-import '../../../../Home/home_screen.dart';
 import '../../../../core/configs/utils/validator.dart';
-import 'login_page.dart';
 import '../../../../core/configs/theme/app_colors.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 

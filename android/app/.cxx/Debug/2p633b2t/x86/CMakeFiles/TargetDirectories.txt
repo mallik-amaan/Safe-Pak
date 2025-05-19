@@ -1,0 +1,2 @@
+C:/Projects/MAD Project/Safe-Pak/android/app/.cxx/Debug/2p633b2t/x86/CMakeFiles/edit_cache.dir
+C:/Projects/MAD Project/Safe-Pak/android/app/.cxx/Debug/2p633b2t/x86/CMakeFiles/rebuild_cache.dir

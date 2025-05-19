@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -7,9 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:safepak/core/common/widgets/button_widget.dart';
 import 'package:safepak/features/authentication/domain/entities/sign_in_params.dart';
 import 'package:safepak/features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
-import '../../../../Home/home_screen.dart';
 import '../../../../core/configs/utils/validator.dart';
-import 'register_page.dart';
 import '../../../../core/configs/const/asset_const.dart' show AssetConst;
 import '../../../../core/configs/theme/app_colors.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -21,101 +18,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginPage> {
-  final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  bool _validateInputs() {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      Fluttertoast.showToast(
-        msg: "Email and password cannot be empty",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      return false;
-    }
-    return true;
-  }
-
-  void _login() async {
-    if (!_validateInputs()) return;
-
-
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-
-      User? user = userCredential.user;
-
-      if (user != null) {
-        if (!user.emailVerified) {
-          await _auth.signOut();
-          Fluttertoast.showToast(
-            msg: "Please verify your email before logging in.",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.orange,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-          return;
-        }
-
-        String username = user.displayName ?? "User";
-
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) =>
-        //         HomeScreen(username: username, email: user.email ?? ""),
-        //   ),
-        // );
-
-        Fluttertoast.showToast(
-          msg: "Login successful!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Theme.of(context).primaryColor,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      String errorMessage = "Login failed. Please try again.";
-
-      if (e.code == 'user-not-found') {
-        errorMessage = "Invalid email.";
-      } else if (e.code == 'wrong-password') {
-        errorMessage = "Invalid password.";
-      }
-
-      Fluttertoast.showToast(
-        msg: errorMessage,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    } catch (e) {
-      Fluttertoast.showToast(
-        msg: "Login failed: ${e.toString()}",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    } finally {
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

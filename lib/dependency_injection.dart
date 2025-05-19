@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:safepak/features/fir_registration/domain/use_cases/submit_fir_usecase.dart';
 
 import 'core/services/location_service.dart';
 import 'features/authentication/data/repository/auth_repository_impl.dart';
@@ -16,12 +16,11 @@ import 'features/authentication/domain/usecases/signin_with_google_usecase.dart'
 import 'features/authentication/domain/usecases/signup_with_email_and_pass_usecase.dart';
 import 'features/authentication/domain/usecases/update_user_usecase.dart';
 import 'features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
+import 'features/fir_registration/data/data_sources/fir_remote_data_source.dart';
 import 'features/fir_registration/data/data_sources/fir_remote_data_source_impl.dart';
 import 'features/fir_registration/data/repositories/fir_repository_impl.dart';
-import 'features/fir_registration/domain/data_sources/fir_remote_data_source.dart';
 import 'features/fir_registration/domain/repositories/fir_repository.dart';
-import 'features/fir_registration/domain/use_cases/submit_fir_usecase.dart';
-import 'features/fir_registration/presentation/bloc/fir_bloc.dart';
+import 'features/fir_registration/presentation/cubit/fir_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -44,7 +43,7 @@ Future<void> initializeDependencies() async {
 
   // Auth data layer
   sl.registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSourceImpl(
+    () => AuthRemoteDataSourceImpl(
       firebaseAuth: sl(),
       firebaseFirestore: sl(),
     ),
@@ -53,23 +52,20 @@ Future<void> initializeDependencies() async {
 
   // Auth BLoC
   sl.registerFactory(() => AuthenticationCubit(
-    forgotPasswordUsecase: sl(),
-    updateUserUsecase: sl(),
-    signInWithEmailAndPassUsecase: sl(),
-    signInWithGoogleUsecase: sl(),
-    signUpWithEmailAndPassUsecase: sl(),
-    getUserUsecase: sl(),
-    deleteAccountUsecase: sl(),
-  ));
+        forgotPasswordUsecase: sl(),
+        updateUserUsecase: sl(),
+        signInWithEmailAndPassUsecase: sl(),
+        signInWithGoogleUsecase: sl(),
+        signUpWithEmailAndPassUsecase: sl(),
+        getUserUsecase: sl(),
+        deleteAccountUsecase: sl(),
+      ));
 
-  // FIR DataLayer
-  sl.registerLazySingleton<FIRRemoteDataSource>(
-          () => FIRRemoteDataSourceImpl(sl()));
-  sl.registerLazySingleton<FIRRepository>(() => FIRRepositoryImpl(sl()));
+  sl.registerLazySingleton(() => SubmitFirUsecase());
+  sl.registerFactory<FirCubit>(() => FirCubit(submitFIRUseCase: sl()));
 
-  //FIR Domain Layer
-  sl.registerLazySingleton(() => SubmitFIRUseCase(sl()));
-
-  //FIR Bloc
-  sl.registerFactory(() => FIRBloc(submitFIRUseCase: sl()));
+  sl.registerLazySingleton<FirRemoteDataSource>(
+    () => FirRemoteDataSourceImpl(firebaseFireStore: sl()),
+  );
+  sl.registerLazySingleton<FirRepository>(() => FirRepositoryImpl());
 }

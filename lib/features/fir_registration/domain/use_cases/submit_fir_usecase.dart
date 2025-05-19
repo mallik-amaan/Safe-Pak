@@ -1,14 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:safepak/core/common/classes/failure.dart';
-import '../entities/fir_entity.dart';
-import '../repositories/fir_repository.dart';
+import 'package:safepak/features/fir_registration/domain/entities/fir_entity.dart';
+import '../../../../core/common/classes/usecase.dart';
+import '../../../../dependency_injection.dart' show sl;
+import '../../domain/repositories/fir_repository.dart';
 
-class SubmitFIRUseCase {
-  final FIRRepository repository;
-
-  SubmitFIRUseCase(this.repository);
-
-  Future<Either<Failure, bool>> call(FIREntity fir) async {
-    return await repository.submitFIR(fir);
+class SubmitFirUsecase implements Usecase<Either, FIREntity> {
+  @override
+  Future<Either> call({FIREntity? params}) {
+    return sl<FirRepository>().submitFIR(params!);
   }
 }

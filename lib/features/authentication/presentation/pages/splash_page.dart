@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:safepak/core/configs/services/user_singleton.dart';
 import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
 
-import 'login_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -23,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
       // ignore: use_build_context_synchronously
       UserEntity? user = UserSingleton().user;
       if(user==null){
-      context.go('/home');
+      context.go('/login');
 
       }else{
         context.go('/home');

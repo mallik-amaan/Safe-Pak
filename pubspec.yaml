@@ -55,6 +55,8 @@ dependencies:
   go_router:
   lottie:
   flutter_secure_storage:
+  persistent_bottom_nav_bar:
+  file_picker:
   # appwrite:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
