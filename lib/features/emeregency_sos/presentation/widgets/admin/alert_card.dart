@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safepak/features/emeregency_sos/presentation/widgets/admin/action_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AlertCard extends StatelessWidget {
   final String label;
@@ -61,19 +62,39 @@ class AlertCard extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 16,
-                                color: Theme.of(context).primaryColor,
+                              Row(
+                                children: [
+                                  Text(
+                                    "location",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      final Uri url = Uri.parse(
+                                          location);
+                                      if (await canLaunchUrl(url)) {
+                                        await launchUrl(url,
+                                            mode:
+                                                LaunchMode.externalApplication);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content:
+                                                  Text("Could not launch map")),
+                                        );
+                                      }
+                                    },
+                                    icon: const Icon(Icons.location_on),
+                                  ),
+                                ],
                               ),
                               const SizedBox(width: 4),
-                              Text(
-                                location,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
                             ],
                           )),
                       const SizedBox(height: 8),

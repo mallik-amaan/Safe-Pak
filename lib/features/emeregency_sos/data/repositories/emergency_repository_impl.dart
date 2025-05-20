@@ -8,6 +8,7 @@ import 'package:safepak/dependency_injection.dart';
 import 'package:safepak/features/emeregency_sos/data/data_sources/emergency_remote_data_source.dart';
 
 import 'package:safepak/features/emeregency_sos/domain/entities/emergency_contact_entity.dart';
+import 'package:safepak/features/emeregency_sos/domain/entities/emergency_entity.dart';
 
 import '../../domain/repositories/emergency_repository.dart';
 
@@ -20,6 +21,12 @@ class EmergencyRepositoryImpl extends EmergencyRepository{
   
   @override
   Future<Either<Failure, NoParams>> deleteContact(EmergencyContactEntity contact) => sl<EmergencyRemoteDataSource>().deleteContact(contact);
+
+  @override
+  Future<Either<Failure, List<EmergencyEntity>>> getEmergency() => sl<EmergencyRemoteDataSource>().getEmergency();
+
+  @override
+  Future<Either<Failure, NoParams>> sendEmergency(EmergencyEntity emergency) => sl<EmergencyRemoteDataSource>().sendEmergency(emergency);
 
 
 }

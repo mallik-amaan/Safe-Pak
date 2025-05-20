@@ -4,6 +4,8 @@ import 'package:safepak/features/authentication/presentation/pages/create_accoun
 import 'package:safepak/features/authentication/presentation/pages/success_page.dart';
 import 'package:safepak/features/criminal_alert/presentation/screens/admin/add_criminal_alert.dart';
 import 'package:safepak/features/criminal_alert/presentation/screens/admin/admin_criminal_alerts.dart';
+import 'package:safepak/features/chatbot/presentation/screens/chat_screen.dart';
+
 import 'package:safepak/features/criminal_alert/presentation/screens/criminal_alert.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/admin/admin_emergency_page.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_page.dart';
@@ -102,5 +104,6 @@ final GoRouter appRouter = GoRouter(
         ),
       ]
     )
+    GoRoute(path: '/ai-chat', builder: (context, state) => ChatScreen()),
   ],
 );

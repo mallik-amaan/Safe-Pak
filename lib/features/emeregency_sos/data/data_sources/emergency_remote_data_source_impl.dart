@@ -4,7 +4,9 @@ import 'package:safepak/core/common/classes/failure.dart';
 import 'package:safepak/core/common/classes/no_params.dart';
 import 'package:safepak/core/services/user_singleton.dart';
 import 'package:safepak/features/emeregency_sos/data/models/emergency_contact_model.dart';
+import 'package:safepak/features/emeregency_sos/data/models/emergency_model.dart';
 import 'package:safepak/features/emeregency_sos/domain/entities/emergency_contact_entity.dart';
+import 'package:safepak/features/emeregency_sos/domain/entities/emergency_entity.dart';
 import 'emergency_remote_data_source.dart';
 
 class EmergencyRemoteDataSourceImpl extends EmergencyRemoteDataSource {
@@ -71,6 +73,39 @@ class EmergencyRemoteDataSourceImpl extends EmergencyRemoteDataSource {
       }
 
       return Right(NoParams());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+
+
+  @override
+  Future<Either<Failure, NoParams>> sendEmergency(EmergencyEntity emergency) async {
+     try {
+      Map<String, dynamic> data = EmergencyModel.fromEntity(emergency).toJson();
+      final docRef = await firebaseFireStore
+          .collection('emergency')
+          .add(data);
+      // Update the document with its own id
+      await docRef.update({'id': docRef.id});
+      return Right(NoParams());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, List<EmergencyEntity>>> getEmergency() async{
+    try {
+      final docList = await firebaseFireStore
+          .collection('emergency')
+          .get();
+        List<EmergencyEntity> emergency = [];
+        for (var element in docList.docs) {
+          emergency.add(EmergencyModel.fromJson(element.data()));
+        }
+        return Right(emergency);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }

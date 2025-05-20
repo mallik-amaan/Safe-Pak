@@ -11,7 +11,9 @@ import 'package:safepak/features/criminal_alert/domain/use_cases/fetch_my_alerts
 import 'package:safepak/features/criminal_alert/presentation/cubit/alert_cubit.dart';
 import 'package:safepak/features/emeregency_sos/domain/use_cases/add_emergency_contact_usecase.dart';
 import 'package:safepak/features/emeregency_sos/domain/use_cases/delete_contact_usecase.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/get_emergency.dart';
 import 'package:safepak/features/emeregency_sos/domain/use_cases/get_emergency_contact_usecase.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/send_emergency.dart';
 import 'package:safepak/features/fir/domain/use_cases/delete_fir_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/get_firs_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/get_my_fir_usecase.dart';
@@ -102,6 +104,10 @@ Future<void> initializeDependencies() async {
 
   sl.registerLazySingleton(() => AddEmergencyContactUseCase());
   sl.registerLazySingleton(() => GetEmergencyContactUseCase());
+
+  sl.registerLazySingleton(() =>  SendEmergencyUseCase());
+  sl.registerLazySingleton(() =>  GetEmergencyUseCase());
+
   sl.registerLazySingleton(() => DeleteContactUseCase());
   sl.registerFactory<EmergencyCubit>(() => EmergencyCubit(addEmergencyContactUseCase: sl(),getEmergencyContactsUseCase: sl(),deleteEmergencyContactUseCase: sl()));
 

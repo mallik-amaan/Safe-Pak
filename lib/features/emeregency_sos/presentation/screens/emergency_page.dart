@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safepak/core/configs/theme/app_colors.dart';
 import 'package:safepak/core/services/location_service.dart';
 import 'package:safepak/core/services/send_sms_service.dart';
+import 'package:safepak/core/services/user_singleton.dart';
+import 'package:safepak/dependency_injection.dart';
+import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
+import 'package:safepak/features/emeregency_sos/domain/entities/emergency_entity.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/send_emergency.dart';
 import 'package:safepak/features/emeregency_sos/presentation/cubit/emergency_cubit.dart';
 import 'package:safepak/features/emeregency_sos/presentation/widgets/emergency_contact_tile.dart';
 
@@ -18,6 +24,7 @@ class EmergencyPage extends StatefulWidget {
 
 class _EmergencyPageState extends State<EmergencyPage> {
   late EmergencyShakeDetector _detector;
+  UserEntity? user = UserSingleton().user;
   bool _isShakeDetectionEnabled = false;
   late List phoneNumberList = [];
   @override
@@ -49,12 +56,22 @@ class _EmergencyPageState extends State<EmergencyPage> {
     );
     LocationService locationService = LocationService();
     var position = await locationService.getCurrentPosition();
+    var location =
+        "https://www.google.com/maps/search/?api=1&query=${position?.latitude},${position?.longitude}";
     for (var phoneNumber in phoneNumberList) {
       await sendSmsAutomatically(
         phoneNumber,
-        "Emergency! Please help! My location is: https://www.google.com/maps/search/?api=1&query=${position?.latitude},${position?.longitude}",
+        "Emergency! Please help! My location is: $location",
       );
     }
+    sl<SendEmergencyUseCase>().call(
+      params: EmergencyEntity(
+        phoneNumber: phoneNumberList[0],
+        name: user?.name,
+        location: position.toString(),
+      ),
+    );
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Emergency action completed!")),
     );
