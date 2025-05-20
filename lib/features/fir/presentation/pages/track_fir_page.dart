@@ -9,9 +9,14 @@ import 'package:safepak/features/fir/presentation/widgets/user_fir_card.dart';
 
 import '../cubit/fir_cubit.dart';
 
-class TrackFirPage extends StatelessWidget {
+class TrackFirPage extends StatefulWidget {
   const TrackFirPage({super.key});
 
+  @override
+  State<TrackFirPage> createState() => _TrackFirPageState();
+}
+
+class _TrackFirPageState extends State<TrackFirPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -22,8 +27,9 @@ class TrackFirPage extends StatelessWidget {
         body: RefreshIndicator(
           color: AppColors.primaryColor,
           onRefresh: () async {
-            context.read<FirCubit>().getMyFIR();
-            return Future.delayed(const Duration(milliseconds: 500));
+            setState(() {
+              context.read<FirCubit>().getMyFIR();
+            });
           },
           child: BlocBuilder<FirCubit, FirState>(
             builder: (context, state) {

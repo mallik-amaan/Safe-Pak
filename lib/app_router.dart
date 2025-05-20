@@ -103,7 +103,7 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) => AdminFirDetailsPage(),
         ),
       ]
-    )
+    ),
     GoRoute(path: '/ai-chat', builder: (context, state) => ChatScreen()),
   ],
 );

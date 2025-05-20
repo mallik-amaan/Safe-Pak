@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safepak/core/configs/theme/app_colors.dart';
 import 'package:safepak/features/criminal_alert/presentation/widgets/action_button.dart';
 
 class CriminalCard extends StatelessWidget {
@@ -27,9 +28,17 @@ class CriminalCard extends StatelessWidget {
               children: [
                 // Image or avatar placeholder
                 Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.grey.shade300,
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                  color: AppColors.lightGrey,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.local_police_sharp,
+                    size: 40,
+                    color: AppColors.secondaryColor,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 // Expanded column for texts
@@ -77,27 +86,7 @@ class CriminalCard extends StatelessWidget {
                             ],
                           )),
                       const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          CriminalActionButton(
-                            label: "Report",
-                            onPressed: () {
-                              // Handle share action
-                            },
-                            color: Colors.grey.shade200,
-                            textColor: Theme.of(context).primaryColor,
-                          ),
-                          const SizedBox(width: 16),
-                          CriminalActionButton(
-                            label: "Share",
-                            onPressed: () {
-                              // Handle report action
-                            },
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                          ),
-                        ],
-                      )
+                      
                     ],
                   ),
                 ),

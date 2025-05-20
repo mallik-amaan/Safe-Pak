@@ -48,7 +48,7 @@ class FirCubit extends Cubit<FirState> {
     final result = await getMyFIRsUseCase.call();
     result.fold(
       (l) => emit(FirError(l.message)),
-      (r) => emit(FirLoaded(r)),
+      (r)  {emit(FirLoaded(r));},
     );
   }
 
