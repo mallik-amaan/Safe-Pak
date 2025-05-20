@@ -6,16 +6,30 @@ class FIRModel extends FIREntity {
       super.description,
       super.dateTime,
       super.location,
-      super.evidencePaths});
+      super.evidencePaths,
+      super.userId,
+      super.userName,
+      super.userEmail,
+      super.userPhone,
+      super.status,
+      super.firId,
+      });
 
   // Convert Entity → Model
   factory FIRModel.fromEntity(FIREntity entity) {
     return FIRModel(
+
       complaintType: entity.complaintType,
       description: entity.description,
       dateTime: entity.dateTime,
       location: entity.location,
       evidencePaths: entity.evidencePaths,
+      userId: entity.userId,
+      userName: entity.userName,
+      userEmail: entity.userEmail,
+      userPhone: entity.userPhone,
+      status: entity.status,
+      firId: entity.firId,
     );
   }
 
@@ -27,6 +41,12 @@ class FIRModel extends FIREntity {
       'dateTime': dateTime==null? null:Timestamp.fromDate(dateTime!),
       'location': location,
       'evidencePaths': evidencePaths,
+      'userId': userId,
+      'userName': userName,
+      'userEmail': userEmail,
+      'userPhone': userPhone,
+      'status': status,
+      'firId': firId,
     };
   }
 
@@ -40,6 +60,12 @@ class FIRModel extends FIREntity {
       evidencePaths: map['evidencePaths'] != null
           ? List<String>.from(map['evidencePaths'])
           : null,
+      userId: map['userId'],
+      userName: map['userName'],
+      userEmail: map['userEmail'],
+      userPhone: map['userPhone'],
+      status: map['status'],
+      firId: map['firId'],
     );
   }
 }

@@ -12,6 +12,7 @@ class UserModel extends UserEntity {
     super.address,
     super.city,
     super.gender,
+    super.isAdmin,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +27,7 @@ class UserModel extends UserEntity {
       city: json['city'] ?? '',
       address: json['address'] ?? '',
       gender: json['gender'] ?? '',
+      isAdmin: json['isAdmin'] ?? false,
     );
   }
 
@@ -40,7 +42,8 @@ class UserModel extends UserEntity {
       'province': province,
       'city': city,
       'address': address,
-      'gender':gender
+      'gender':gender,
+      'isAdmin': isAdmin,
     };
   }
 
@@ -56,6 +59,7 @@ class UserModel extends UserEntity {
       address: user.address,
       city: user.city,
       gender: user.gender,
+      isAdmin: user.isAdmin,
     );
   }
 }

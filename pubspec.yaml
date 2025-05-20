@@ -70,6 +70,8 @@ dependencies:
   another_telephony:
   supabase_flutter:
   uuid:
+  shimmer:
+  cached_network_image:
 dev_dependencies:
   flutter_test:
     sdk: flutter

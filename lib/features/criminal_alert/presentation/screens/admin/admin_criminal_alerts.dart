@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safepak/features/criminal_alert/presentation/widgets/action_button.dart';
 import 'package:safepak/features/criminal_alert/presentation/widgets/admin/criminal_card.dart';
-import 'package:safepak/features/criminal_alert/presentation/widgets/criminal_card.dart';
 
 class AdminCriminalAlertsPage extends StatelessWidget {
   AdminCriminalAlertsPage({super.key});
@@ -10,7 +9,7 @@ class AdminCriminalAlertsPage extends StatelessWidget {
     {
       "label": "Armed Robbery Suspect",
       "location": "Attar Hostel",
-      "description": "Last seen near Central Market wearing black jacket",
+      "description": "Last seen near Central Market wearing black jacket", 
     },
     {
       "label": "Suspicious Person",

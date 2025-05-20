@@ -8,15 +8,15 @@ import 'package:safepak/features/criminal_alert/presentation/screens/criminal_al
 import 'package:safepak/features/emeregency_sos/presentation/screens/admin/admin_emergency_page.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_page.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
-import 'package:safepak/features/fir_registration/presentation/pages/admin/fir_details_page.dart';
-import 'package:safepak/features/fir_registration/presentation/pages/admin/fir_page.dart';
-import 'package:safepak/features/fir_registration/presentation/pages/fir_registration_page.dart';
+import 'package:safepak/features/fir/presentation/pages/admin/admin_fir_details_page.dart';
+import 'package:safepak/features/fir/presentation/pages/admin/admin_fir_page.dart';
 import 'package:safepak/features/home/pages/admin_home_page.dart';
 import 'package:safepak/features/home/pages/main_page.dart';
 
 import 'features/authentication/presentation/pages/login_page.dart';
 import 'features/authentication/presentation/pages/register_page.dart';
 import 'features/authentication/presentation/pages/splash_page.dart';
+import 'features/fir/presentation/pages/fir_registration_page.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -36,7 +36,7 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => AdminHomePage(),
+      builder: (context, state) => MainPage(),
     ),
     GoRoute(
       path: '/create_account_page_1',
@@ -76,6 +76,10 @@ final GoRouter appRouter = GoRouter(
       ]
     ),
     GoRoute(
+      path: '/admin_home',
+      builder: (context, state) => AdminHomePage(),
+    ),
+    GoRoute(
       path: '/admin_emergency',
       builder: (context, state) => AdminEmergencyPage(),
     ),
@@ -89,7 +93,7 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(
           path: '/admin_fir_details',
-          builder: (context, state) => FirDetailsPage(),
+          builder: (context, state) => AdminFirDetailsPage(),
         ),
       ]
     )

@@ -9,9 +9,9 @@ import 'package:safepak/features/emeregency_sos/data/data_sources/emergency_remo
 
 import 'package:safepak/features/emeregency_sos/domain/entities/emergency_contact_entity.dart';
 
-import '../../domain/repositories/emergency_repository.dart';
+import '../../domain/repositories/criminal_alert_repository.dart';
 
-class EmergencyRepositoryImpl extends EmergencyRepository{
+class CriminalAlertRepositoryImpl extends CriminalAlertRepository {
   @override
   Future<Either<Failure, NoParams>> addEmergencyContact(EmergencyContactEntity params) => sl<EmergencyRemoteDataSource>().addEmergencyContact(params);
   

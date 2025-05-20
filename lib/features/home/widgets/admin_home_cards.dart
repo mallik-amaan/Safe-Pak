@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-List<Widget> AdminHomeCards(BuildContext context) {
+List<Widget> adminHomeCards(BuildContext context) {
   final Map<String, dynamic> comps = {
     "FIR": {
       "title": "FIR Reports",

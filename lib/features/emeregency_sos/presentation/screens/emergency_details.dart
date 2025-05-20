@@ -13,7 +13,7 @@ class EmergencyDetailsScreen extends StatelessWidget {
   final nameController = TextEditingController();
   final relationController = TextEditingController();
   final phoneNoController = TextEditingController();
-  final GlobalKey<FormFieldState> formKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String? _validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
@@ -103,6 +103,9 @@ class EmergencyDetailsScreen extends StatelessWidget {
                     builder: (context, state) {
                       return ButtonWidget(
                         onPressed: () {
+                          if (!formKey.currentState!.validate()) {
+                            return;
+                          }
                           final name = nameController.text.trim();
                           final relation = relationController.text.trim();
                           final phone = phoneNoController.text.trim();

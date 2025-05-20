@@ -123,6 +123,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         'address': user.address,
         'city': user.city,
         'gender':user.gender,
+        'isAdmin': false,
       });
       DocumentSnapshot snap =await firebaseFirestore.collection('users').doc(user.uid).get();
       UserEntity newUser = UserModel.fromJson(snap.data() as Map<String,dynamic>);

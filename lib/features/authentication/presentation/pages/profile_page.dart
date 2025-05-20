@@ -1,6 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import 'package:safepak/core/services/user_singleton.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../core/configs/theme/app_colors.dart' show AppColors;
 import '../../domain/entities/user_entity.dart';
 
@@ -37,6 +41,45 @@ class _ProfilePageState extends State<ProfilePage> {
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          GestureDetector(
+            child: const Icon(
+              OctIcons.sign_out,
+              color: Colors.white,
+              size: 20,
+            ),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Sign Out'),
+                  content: const Text('Are you sure you want to sign out?'),
+                  actions: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.primaryColor,
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.red,
+                      ),
+                      onPressed: () {
+                        UserSingleton().clearUser();
+                        Navigator.of(context).pop();
+                        context.go('/login');
+                      },
+                      child: const Text('Sign Out'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const SizedBox(width: 16),
+        ],
         // leading: GestureDetector(
         //   child: Container(
         //     margin: const EdgeInsets.all(6.0),
@@ -180,13 +223,42 @@ class _ProfilePageState extends State<ProfilePage> {
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: AppColors.lightGrey,
-                    backgroundImage: (currentUser.imageUrl != null ||
+                    child: (currentUser.imageUrl != null &&
                             currentUser.imageUrl!.isNotEmpty)
-                        ? NetworkImage(currentUser.imageUrl!)
-                        : null,
-                    child: (currentUser.imageUrl == null ||
-                            currentUser.imageUrl!.isEmpty)
-                        ? Text(
+                        ? ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: currentUser.imageUrl!,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder: (context, url, progress) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    color: Colors.white,
+                                  ),
+                                );
+                              },
+                              placeholder: (context, url) => SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.error,
+                                color: Colors.red,
+                                size: 40,
+                              ),
+                            ),
+                          )
+                        : Text(
                             currentUser.name != null &&
                                     currentUser.name!.isNotEmpty
                                 ? currentUser.name!
@@ -202,8 +274,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
                             ),
-                          )
-                        : null,
+                          ),
                   ),
                 ],
               ),

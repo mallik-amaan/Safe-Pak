@@ -8,4 +8,6 @@ abstract class EmergencyRepository {
   Future<Either<Failure,NoParams>> addEmergencyContact(EmergencyContactEntity params);
 
   Future<Either<Failure,List<EmergencyContactEntity>>> getEmergencyContact();
+
+  Future<Either<Failure,NoParams>> deleteContact(EmergencyContactEntity contact);
 }

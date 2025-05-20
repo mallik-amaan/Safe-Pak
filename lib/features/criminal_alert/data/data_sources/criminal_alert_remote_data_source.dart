@@ -4,7 +4,7 @@ import 'package:safepak/features/emeregency_sos/domain/entities/emergency_contac
 import '../../../../core/common/classes/failure.dart';
 import '../../../../core/common/classes/no_params.dart';
 
-abstract class EmergencyRemoteDataSource {
+abstract class CriminalAlertRemoteDataSource {
  Future<Either<Failure, NoParams>> addEmergencyContact(EmergencyContactEntity contact);
 
   Future<Either<Failure, List<EmergencyContactEntity>>> getEmergencyContact();

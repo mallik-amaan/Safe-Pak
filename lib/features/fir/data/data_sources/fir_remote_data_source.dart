@@ -6,4 +6,8 @@ import '../../domain/entities/fir_entity.dart';
 
 abstract class FirRemoteDataSource {
   Future<Either<Failure,NoParams>> submitFIR(FIREntity fir);
+
+  Future<Either<Failure,List<FIREntity>>> getFIRs();
+  Future<Either<Failure,NoParams>> deleteFIR(FIREntity fir);
+  Future<Either<Failure,NoParams>> updateFIR(FIREntity fir);
 }

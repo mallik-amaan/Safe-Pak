@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:safepak/features/criminal_alert/presentation/widgets/action_button.dart';
-import 'package:safepak/features/fir_registration/presentation/widgets/action_button.dart';
 
 class AdminCriminalCard extends StatelessWidget {
   final String label;

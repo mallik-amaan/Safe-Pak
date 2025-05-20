@@ -14,4 +14,13 @@ class FirRepositoryImpl extends FirRepository{
   @override
   Future<Either<Failure, NoParams>> submitFIR(FIREntity fir) => sl<FirRemoteDataSource>().submitFIR(fir);
 
+  @override
+  Future<Either<Failure, List<FIREntity>>> getFIRs() => sl<FirRemoteDataSource>().getFIRs();
+  
+  @override
+  Future<Either<Failure, NoParams>> deleteFIR(FIREntity fir) => sl<FirRemoteDataSource>().deleteFIR(fir);
+
+  @override
+  Future<Either<Failure, NoParams>> updateFIR(FIREntity fir) => sl<FirRemoteDataSource>().updateFIR(fir);
+
 }

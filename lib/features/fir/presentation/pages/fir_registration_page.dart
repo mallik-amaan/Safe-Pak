@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:safepak/core/common/widgets/button_widget.dart';
 import 'package:safepak/core/configs/theme/app_colors.dart';
 import 'package:safepak/core/services/location_service.dart';
+import 'package:safepak/core/services/user_singleton.dart';
 import 'package:safepak/dependency_injection.dart';
+import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
 import 'package:safepak/features/fir/presentation/cubit/fir_cubit.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import '../../domain/entities/fir_entity.dart';
@@ -107,12 +109,18 @@ class _FirRegistrationPageState extends State<FirRegistrationPage> {
   }
 
   void _handleSubmit() {
+    UserEntity user = UserSingleton().user!;
     final FIREntity fir = FIREntity(
       complaintType: _selectedType!,
       description: _descriptionController.text,
       location: _locationController.text,
       dateTime: DateTime.parse(_dateTimeController.text.replaceAll(' ', 'T')),
       evidencePaths: _evidencePaths,
+      userId: user.uid,
+      userName: user.name,
+      userEmail: user.email,
+      userPhone: user.phoneNumber,
+      status: "pending",
     );
     context.read<FirCubit>().submitFir(fir);
   }

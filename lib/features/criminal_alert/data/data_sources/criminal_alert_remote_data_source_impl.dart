@@ -5,12 +5,12 @@ import 'package:safepak/core/common/classes/no_params.dart';
 import 'package:safepak/core/services/user_singleton.dart';
 import 'package:safepak/features/emeregency_sos/data/models/emergency_contact_model.dart';
 import 'package:safepak/features/emeregency_sos/domain/entities/emergency_contact_entity.dart';
-import 'emergency_remote_data_source.dart';
+import 'criminal_alert_remote_data_source.dart';
 
-class EmergencyRemoteDataSourceImpl extends EmergencyRemoteDataSource {
+class CriminalAlertRemoteDataSourceImpl extends CriminalAlertRemoteDataSource {
   final FirebaseFirestore firebaseFireStore;
 
-  EmergencyRemoteDataSourceImpl({required this.firebaseFireStore});
+  CriminalAlertRemoteDataSourceImpl({required this.firebaseFireStore});
 
 
   @override

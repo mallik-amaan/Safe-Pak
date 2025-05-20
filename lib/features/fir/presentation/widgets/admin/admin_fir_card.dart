@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:safepak/features/emeregency_sos/presentation/widgets/admin/action_button.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:safepak/core/configs/theme/app_colors.dart';
 
 class AdminFirCard extends StatelessWidget {
   final String label;
@@ -16,8 +16,18 @@ class AdminFirCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.backgroundColor,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryColor.withOpacity(0.2),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -28,9 +38,17 @@ class AdminFirCard extends StatelessWidget {
               children: [
                 // Image or avatar placeholder
                 Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.grey.shade300,
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                  color: AppColors.lightGrey,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    AntDesign.file_text_outline,
+                    size: 40,
+                    color: AppColors.secondaryColor,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 // Expanded column for texts
@@ -50,6 +68,7 @@ class AdminFirCard extends StatelessWidget {
                         description,
                         style: Theme.of(context).textTheme.bodyMedium,
                         softWrap: true,
+                        maxLines: 2,
                       ),
                       const SizedBox(height: 8),
                       Container(
@@ -78,20 +97,7 @@ class AdminFirCard extends StatelessWidget {
                             ],
                           )),
                       const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          AlertActionButton(
-                            label: "View Details",
-                            onPressed: () {
-                              // Show the take action dialog
-                              context.push('/admin_fir/admin_fir_details');
-                            },
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                          ),
-                          const SizedBox(width: 16),
-                        ],
-                      )
+                      
                     ],
                   ),
                 ),

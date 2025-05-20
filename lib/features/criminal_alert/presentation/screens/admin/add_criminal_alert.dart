@@ -8,9 +8,10 @@ import 'package:safepak/core/common/widgets/button_widget.dart';
 import 'package:safepak/core/configs/theme/app_colors.dart';
 import 'package:safepak/core/services/location_service.dart';
 import 'package:safepak/dependency_injection.dart';
-import 'package:safepak/features/fir_registration/domain/entities/fir_entity.dart';
-import 'package:safepak/features/fir_registration/presentation/cubit/fir_cubit.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+
+import '../../../../fir/domain/entities/fir_entity.dart';
+import '../../../../fir/presentation/cubit/fir_cubit.dart';
 
 class AddCriminalAlert extends StatefulWidget {
   const AddCriminalAlert({super.key});
