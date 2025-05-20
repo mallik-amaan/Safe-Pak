@@ -1,52 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:safepak/core/configs/theme/app_colors.dart';
 
 class EmergencyContactTile extends StatelessWidget {
   final String name;
   final String phoneNumber;
   final String relation;
+  final GestureLongPressCallback onLongPress;
   const EmergencyContactTile({
     super.key,
-    this.name = "John Doe",
+    this.name = "John Doe", 
     this.phoneNumber = "1234567890",
     this.relation = "Father",
+    required this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 1,
-        color: Colors.grey.shade200,
+    return Card(
+      elevation: 1,
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      color: AppColors.lightGrey, // Use AppColors for consistency
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: InkWell(
+        // Wrap ListTile in InkWell for custom splash color
+        splashColor: AppColors.primaryColor.withOpacity(0.2),
+        highlightColor: AppColors.primaryColor.withOpacity(0.1),
+        onLongPress: onLongPress,
         child: ListTile(
-          leading: const Icon(Icons.person),
-          title: Text(name),
+          leading: const Icon(
+            Icons.person,
+            color: AppColors.secondaryColor,
+          ),
+          title: Text(
+            name,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+          ),
           trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.call,
                     size: 15,
+                    color: AppColors.secondaryColor,
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
                     "Phone No:",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey.shade600,
+                        ),
                   ),
                 ],
               ),
               const SizedBox(height: 4),
-              Text(phoneNumber, style: Theme.of(context).textTheme.bodyMedium),
-              const SizedBox(height: 4),
+              Text(
+                phoneNumber,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.black87,
+                    ),
+              ),
             ],
           ),
-          subtitle: Text(relation),
-          onTap: () {
-            print("Tapped on John Doe");
-          },
+          subtitle: Text(
+            relation,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey.shade600,
+                ),
+          ),
         ),
       ),
     );

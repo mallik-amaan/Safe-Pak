@@ -5,11 +5,13 @@ class CriminalActionButton extends StatelessWidget {
   final Function onPressed;
   final Color color;
   final Color textColor;
+  final int width;
   const CriminalActionButton({super.key,
   required this.label,
   required this.onPressed,
   required this.color,
   required this.textColor,
+  this.width = 100,
   });
 
   @override
@@ -17,7 +19,7 @@ class CriminalActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => onPressed(),
       child: Container(
-        width: 100,
+        width: width.toDouble(),
         height: 50,
         decoration: BoxDecoration(
           color: color,

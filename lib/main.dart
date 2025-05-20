@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:safepak/dependency_injection.dart';
 import 'package:safepak/features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
-import 'package:safepak/features/fir_registration/presentation/cubit/fir_cubit.dart';
+import 'package:safepak/features/fir/presentation/cubit/fir_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'features/emeregency_sos/presentation/cubit/emergency_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => sl<FirCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<EmergencyCubit>(),
         ),
       ],
       child: MaterialApp.router(

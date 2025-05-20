@@ -13,9 +13,11 @@ class AppTheme {
       highlightColor: AppColors.primaryColor,
       shadowColor: AppColors.secondaryColor,
       appBarTheme: AppBarTheme(
+
         backgroundColor: AppColors.backgroundColor,
         iconTheme: IconThemeData(color: AppColors.primaryColor),
         titleTextStyle: TextStyle(
+          fontFamily: 'Urbanist',
           color: AppColors.primaryColor,
           fontWeight: FontWeight.w500,
           fontSize: 20

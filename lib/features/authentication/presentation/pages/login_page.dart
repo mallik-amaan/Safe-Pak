@@ -98,7 +98,11 @@ class _LoginScreenState extends State<LoginPage> {
                   BlocConsumer<AuthenticationCubit, AuthenticationState>(
                     listener: (context, state) {
                       if (state is Authenticated) {
-                       context.go('/home');
+                        if(state.user.isAdmin!){
+                          context.go('/admin_home');
+                        }else{
+                          context.go('/home');
+                        }
                         Fluttertoast.showToast(
                           msg: "Login successful!",
                           toastLength: Toast.LENGTH_SHORT,

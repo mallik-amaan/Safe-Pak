@@ -23,9 +23,14 @@ class _SplashPageState extends State<SplashPage> {
       // ignore: use_build_context_synchronously
       UserEntity? user = UserSingleton().user;
       if(user==null){
+        
       context.go('/login');
       }else{
-        context.go('/home');
+        if(user.isAdmin!){
+          context.go('/admin_home');
+        }else{
+          context.go('/home');
+        }
       }
     });
   }

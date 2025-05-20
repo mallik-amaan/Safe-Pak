@@ -13,6 +13,7 @@ class UserEntity extends Equatable {
   final String? address;
   final String? city;
   final String? gender;
+  final bool? isAdmin;
   
   // Just to store the image temporarily
   final File? image;
@@ -29,6 +30,7 @@ class UserEntity extends Equatable {
     this.phoneNumber,
     this.imageUrl,
     this.image,
+    this.isAdmin,
   });
 
   UserEntity copyWith({
@@ -43,6 +45,7 @@ class UserEntity extends Equatable {
     String? city,
     String? gender,
     File? image,
+    bool? isAdmin,
   }) {
     return UserEntity(
       uid: uid ?? this.uid,
@@ -56,9 +59,10 @@ class UserEntity extends Equatable {
       city: city ?? this.city,
       gender: gender ?? this.gender,
       image: image ?? this.image,
+      isAdmin: isAdmin ?? this.isAdmin,
     );
   }
 
   @override
-  List<Object?> get props => [uid, email, name, phoneNumber, imageUrl, image, dob, province, address, city, gender];
+  List<Object?> get props => [uid, email, name, phoneNumber, imageUrl, image, dob, province, address, city, gender, isAdmin];
 }

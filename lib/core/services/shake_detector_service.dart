@@ -1,8 +1,3 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shake/shake.dart';
 
 class EmergencyShakeDetector {

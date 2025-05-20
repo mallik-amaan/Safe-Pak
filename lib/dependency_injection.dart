@@ -1,7 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:safepak/features/fir_registration/domain/use_cases/submit_fir_usecase.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/add_emergency_contact_usecase.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/delete_contact_usecase.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/get_emergency.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/get_emergency_contact_usecase.dart';
+import 'package:safepak/features/emeregency_sos/domain/use_cases/send_emergency.dart';
+import 'package:safepak/features/fir/domain/use_cases/delete_fir_usecase.dart';
+import 'package:safepak/features/fir/domain/use_cases/get_firs_usecase.dart';
+import 'package:safepak/features/fir/domain/use_cases/submit_fir_usecase.dart';
+import 'package:safepak/features/fir/domain/use_cases/update_fir_usecase.dart';
 
 import 'core/services/location_service.dart';
 import 'features/authentication/data/repository/auth_repository_impl.dart';
@@ -16,11 +24,16 @@ import 'features/authentication/domain/usecases/signin_with_google_usecase.dart'
 import 'features/authentication/domain/usecases/signup_with_email_and_pass_usecase.dart';
 import 'features/authentication/domain/usecases/update_user_usecase.dart';
 import 'features/authentication/presentation/bloc/auth_cubit/authentication_cubit.dart';
-import 'features/fir_registration/data/data_sources/fir_remote_data_source.dart';
-import 'features/fir_registration/data/data_sources/fir_remote_data_source_impl.dart';
-import 'features/fir_registration/data/repositories/fir_repository_impl.dart';
-import 'features/fir_registration/domain/repositories/fir_repository.dart';
-import 'features/fir_registration/presentation/cubit/fir_cubit.dart';
+import 'features/emeregency_sos/data/data_sources/emergency_remote_data_source.dart';
+import 'features/emeregency_sos/data/data_sources/emergency_remote_data_source_impl.dart';
+import 'features/emeregency_sos/data/repositories/emergency_repository_impl.dart';
+import 'features/emeregency_sos/domain/repositories/emergency_repository.dart';
+import 'features/emeregency_sos/presentation/cubit/emergency_cubit.dart';
+import 'features/fir/data/data_sources/fir_remote_data_source.dart';
+import 'features/fir/data/data_sources/fir_remote_data_source_impl.dart';
+import 'features/fir/data/repositories/fir_repository_impl.dart';
+import 'features/fir/domain/repositories/fir_repository.dart';
+import 'features/fir/presentation/cubit/fir_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -62,10 +75,33 @@ Future<void> initializeDependencies() async {
       ));
 
   sl.registerLazySingleton(() => SubmitFirUsecase());
-  sl.registerFactory<FirCubit>(() => FirCubit(submitFIRUseCase: sl()));
+  sl.registerLazySingleton(() => GetFirsUsecase());
+  sl.registerLazySingleton(() => DeleteFirUsecase());
+  sl.registerLazySingleton(() => UpdateFirUsecase());
+  
+  sl.registerFactory<FirCubit>(() => FirCubit(
+    getFIRsUseCase: sl(),
+    deleteFIRUseCase: sl(),
+    updateFIRUseCase: sl(),
+    submitFIRUseCase: sl()));
 
   sl.registerLazySingleton<FirRemoteDataSource>(
     () => FirRemoteDataSourceImpl(firebaseFireStore: sl()),
   );
   sl.registerLazySingleton<FirRepository>(() => FirRepositoryImpl());
+
+
+  sl.registerLazySingleton(() => AddEmergencyContactUseCase());
+  sl.registerLazySingleton(() => GetEmergencyContactUseCase());
+
+  sl.registerLazySingleton(() =>  SendEmergencyUseCase());
+  sl.registerLazySingleton(() =>  GetEmergencyUseCase());
+
+  sl.registerLazySingleton(() => DeleteContactUseCase());
+  sl.registerFactory<EmergencyCubit>(() => EmergencyCubit(addEmergencyContactUseCase: sl(),getEmergencyContactsUseCase: sl(),deleteEmergencyContactUseCase: sl()));
+
+  sl.registerLazySingleton<EmergencyRemoteDataSource>(
+    () => EmergencyRemoteDataSourceImpl(firebaseFireStore: sl()),
+  );
+  sl.registerLazySingleton<EmergencyRepository>(() => EmergencyRepositoryImpl());
 }
