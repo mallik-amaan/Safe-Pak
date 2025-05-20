@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safepak/FIR Registration/crime_reporting_screen.dart';
+import 'package:safepak/features/fir/presentation/pages/fir_registration_page.dart';
 
 void main() {
-  testWidgets('CrimeReportingScreen displays form fields',
+  testWidgets('FirRegistrationPage displays form fields',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CrimeReportingScreen()));
+    await tester.pumpWidget(MaterialApp(home: FirRegistrationPage()));
 
     expect(find.text('Report a Crime'), findsOneWidget);
     expect(find.byType(TextFormField),
@@ -13,9 +13,9 @@ void main() {
     expect(find.widgetWithText(ElevatedButton, 'Submit'), findsOneWidget);
   });
 
-  testWidgets('CrimeReportingScreen shows validation errors',
+  testWidgets('FirRegistrationPage shows validation errors',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CrimeReportingScreen()));
+    await tester.pumpWidget(MaterialApp(home: FirRegistrationPage()));
 
     await tester.tap(find.widgetWithText(ElevatedButton, 'Submit'));
     await tester.pump();
@@ -25,9 +25,9 @@ void main() {
     expect(find.text('Please enter a location'), findsOneWidget);
   });
 
-  testWidgets('CrimeReportingScreen submits form with valid input',
+  testWidgets('FirRegistrationPage submits form with valid input',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CrimeReportingScreen()));
+    await tester.pumpWidget(MaterialApp(home: FirRegistrationPage()));
 
     await tester.enterText(find.byKey(Key('titleField')), 'Robbery');
     await tester.enterText(find.byKey(Key('descriptionField')),
@@ -41,9 +41,9 @@ void main() {
     expect(find.text('Crime reported successfully!'), findsOneWidget);
   });
 
-  testWidgets('CrimeReportingScreen resets form after submission',
+  testWidgets('FirRegistrationPage resets form after submission',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CrimeReportingScreen()));
+    await tester.pumpWidget(MaterialApp(home: FirRegistrationPage()));
 
     await tester.enterText(find.byKey(Key('titleField')), 'Robbery');
     await tester.enterText(find.byKey(Key('descriptionField')),

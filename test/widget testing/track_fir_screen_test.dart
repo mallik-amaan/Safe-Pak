@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:safepak/FIR Registration/track_fir_screen.dart';
 import 'package:mockito/mockito.dart';
+import 'package:safepak/features/fir/presentation/pages/track_fir_page.dart';
 
 class MockUser {
   final String uid;
@@ -34,9 +34,9 @@ class DocumentReferenceMock extends Mock {
 }
 
 void main() {
-  testWidgets('TrackFirScreen displays initial state correctly',
+  testWidgets('TrackFirPage displays initial state correctly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: TrackFirScreen()));
+    await tester.pumpWidget(MaterialApp(home: TrackFirPage()));
 
     expect(find.text('Track your FIR'), findsOneWidget);
     // Mock Firestore response
@@ -51,15 +51,15 @@ void main() {
         .thenAnswer((_) async =>
             FakeDocumentSnapshot(data: {'status': 'under review'}));
 
-    await tester.pumpWidget(MaterialApp(home: TrackFirScreen()));
+    await tester.pumpWidget(MaterialApp(home: TrackFirPage()));
     await tester.pumpAndSettle();
 
     expect(find.text('Status:'), findsOneWidget);
     expect(find.text('under review'), findsOneWidget);
   });
-  testWidgets('TrackFirScreen displays initial state correctly',
+  testWidgets('TrackFirPage displays initial state correctly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: TrackFirScreen()));
+    await tester.pumpWidget(MaterialApp(home: TrackFirPage()));
 
     expect(find.text('Track your FIR'), findsOneWidget);
     expect(find.text('Progress:'), findsOneWidget);
@@ -73,9 +73,9 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets('TrackFirScreen updates progress based on status',
+  testWidgets('TrackFirPage updates progress based on status',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: TrackFirScreen()));
+    await tester.pumpWidget(MaterialApp(home: TrackFirPage()));
 
     // Mock Firestore response
     final mockUser = MockUser(uid: 'test123');
@@ -95,7 +95,7 @@ void main() {
     expect(find.text('under review'), findsOneWidget);
   });
 
-  testWidgets('TrackFirScreen shows message when no FIR found',
+  testWidgets('TrackFirPage shows message when no FIR found',
       (WidgetTester tester) async {
     // Mock Firestore response
     final mockUser = MockUser(uid: 'test123');
@@ -108,7 +108,7 @@ void main() {
               data: {}, /* exists: false */
             ));
 
-    await tester.pumpWidget(MaterialApp(home: TrackFirScreen()));
+    await tester.pumpWidget(MaterialApp(home: TrackFirPage()));
     await tester.pumpAndSettle();
 
     expect(find.text('No FIR found for this user.'), findsOneWidget);
