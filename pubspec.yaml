@@ -72,6 +72,7 @@ dependencies:
   uuid:
   shimmer:
   cached_network_image:
+  mocktail: ^1.0.4
   url_launcher: ^6.3.1
 
   http: ^0.13.6
