@@ -1,11 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:safepak/features/criminal_alert/data/data_sources/criminal_alert_remote_data_source.dart';
+import 'package:safepak/features/criminal_alert/data/data_sources/criminal_alert_remote_data_source_impl.dart';
+import 'package:safepak/features/criminal_alert/data/repositories/criminal_alert_repository_impl.dart';
+import 'package:safepak/features/criminal_alert/domain/repositories/criminal_alert_repository.dart';
+import 'package:safepak/features/criminal_alert/domain/use_cases/add_alert_usecase.dart';
+import 'package:safepak/features/criminal_alert/domain/use_cases/fetch_all_alerts_usecase.dart';
+import 'package:safepak/features/criminal_alert/domain/use_cases/fetch_my_alerts_usecase.dart';
+import 'package:safepak/features/criminal_alert/presentation/cubit/alert_cubit.dart';
 import 'package:safepak/features/emeregency_sos/domain/use_cases/add_emergency_contact_usecase.dart';
 import 'package:safepak/features/emeregency_sos/domain/use_cases/delete_contact_usecase.dart';
 import 'package:safepak/features/emeregency_sos/domain/use_cases/get_emergency_contact_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/delete_fir_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/get_firs_usecase.dart';
+import 'package:safepak/features/fir/domain/use_cases/get_my_fir_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/submit_fir_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/update_fir_usecase.dart';
 
@@ -76,11 +85,13 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton(() => GetFirsUsecase());
   sl.registerLazySingleton(() => DeleteFirUsecase());
   sl.registerLazySingleton(() => UpdateFirUsecase());
+  sl.registerLazySingleton(() => GetMyFirsUsecase());
   
   sl.registerFactory<FirCubit>(() => FirCubit(
     getFIRsUseCase: sl(),
     deleteFIRUseCase: sl(),
     updateFIRUseCase: sl(),
+    getMyFIRsUseCase: sl(),
     submitFIRUseCase: sl()));
 
   sl.registerLazySingleton<FirRemoteDataSource>(
@@ -98,4 +109,22 @@ Future<void> initializeDependencies() async {
     () => EmergencyRemoteDataSourceImpl(firebaseFireStore: sl()),
   );
   sl.registerLazySingleton<EmergencyRepository>(() => EmergencyRepositoryImpl());
+
+
+  sl.registerLazySingleton(() => AddAlertUsecase());
+  sl.registerLazySingleton(() => FetchMyAlertsUsecase());
+  sl.registerLazySingleton(() => FetchAllAlertsUsecase());
+  sl.registerFactory<AlertCubit>(() => AlertCubit(
+    createAlertUseCase: sl(),
+    fetchMyAlertsUsecase: sl(),
+    fetchAllAlertsUseCase: sl(),
+  ));
+
+  sl.registerLazySingleton<CriminalAlertRemoteDataSource>(
+    () => CriminalAlertRemoteDataSourceImpl(firebaseFireStore: sl()),
+  );
+  sl.registerLazySingleton<CriminalAlertRepository>(() => CriminalAlertRepositoryImpl());
+
+
+  
 }

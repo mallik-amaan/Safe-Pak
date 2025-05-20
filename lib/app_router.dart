@@ -16,6 +16,7 @@ import 'package:safepak/features/home/pages/main_page.dart';
 import 'features/authentication/presentation/pages/login_page.dart';
 import 'features/authentication/presentation/pages/register_page.dart';
 import 'features/authentication/presentation/pages/splash_page.dart';
+import 'features/fir/presentation/pages/fir_details_page.dart';
 import 'features/fir/presentation/pages/fir_registration_page.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -51,6 +52,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/success',
       builder: (context, state) => SuccessPage(),
+    ),
+    GoRoute(
+      path: '/fir_details',
+      builder: (context, state) => FirDetailsPage(),
     ),
     GoRoute(
         path: '/emergency',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:safepak/FIR%20Registration/track_fir_screen.dart';
 import 'package:safepak/core/configs/theme/app_colors.dart';
+import 'package:safepak/features/fir/presentation/pages/track_fir_page.dart';
 import '../../authentication/presentation/pages/profile_page.dart';
 import 'home_page.dart';
 
@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   // List of screens for each navigation item
   final List<Widget> _screens = [
     const HomePage(),
-    TrackFirScreen(),
+    TrackFirPage(),
     ProfilePage(),
   ];
 

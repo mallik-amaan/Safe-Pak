@@ -112,7 +112,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   Future<Either<Failure, UserEntity>> updateUser(UserEntity user) async{
     try{
     // await UploadFile.uploadFile(user.image!)
-      String url = await uploadFile(user.image!);
+    String url = '';
+    if(user.image != null){
+      url = await uploadFile(user.image!);
+    }
     await firebaseFirestore.collection('users').doc(user.uid).update(
       {'email': user.email,
         'name': user.name,

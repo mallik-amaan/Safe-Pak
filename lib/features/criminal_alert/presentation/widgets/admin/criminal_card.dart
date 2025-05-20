@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:safepak/features/criminal_alert/presentation/widgets/action_button.dart';
+
+import '../../../../../core/configs/theme/app_colors.dart';
 
 class AdminCriminalCard extends StatelessWidget {
   final String label;
@@ -27,9 +28,17 @@ class AdminCriminalCard extends StatelessWidget {
               children: [
                 // Image or avatar placeholder
                 Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.grey.shade300,
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.lightGrey,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.warning_amber_outlined,
+                    size: 40,
+                    color: AppColors.secondaryColor,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 // Expanded column for texts
@@ -52,52 +61,32 @@ class AdminCriminalCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 4.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 16,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                location,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 16,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              location,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          CriminalActionButton(
-                            label: "Delete",
-                            onPressed: () {
-                              // Handle share action
-                            },
-                            color: Colors.grey.shade200,
-                            textColor: Theme.of(context).primaryColor,
-                          ),
-                          const SizedBox(width: 16),
-                          CriminalActionButton(
-                            label: "Share",
-                            onPressed: () {
-                              // Handle report action
-                            },
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),

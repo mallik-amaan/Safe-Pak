@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:safepak/features/fir/domain/use_cases/delete_fir_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/get_firs_usecase.dart';
+import 'package:safepak/features/fir/domain/use_cases/get_my_fir_usecase.dart';
 import 'package:safepak/features/fir/domain/use_cases/update_fir_usecase.dart';
 
 import '../../domain/entities/fir_entity.dart';
@@ -12,6 +13,7 @@ part 'fir_state.dart';
 class FirCubit extends Cubit<FirState> {
   final SubmitFirUsecase submitFIRUseCase;
   final GetFirsUsecase getFIRsUseCase;
+  final GetMyFirsUsecase getMyFIRsUseCase;
   final UpdateFirUsecase updateFIRUseCase;
   final DeleteFirUsecase deleteFIRUseCase;
 
@@ -20,6 +22,7 @@ class FirCubit extends Cubit<FirState> {
     required this.deleteFIRUseCase,
     required this.updateFIRUseCase,
     required this.submitFIRUseCase,
+    required this.getMyFIRsUseCase,
   }) : super(FirInitial());
 
   submitFir(FIREntity fir)async{
@@ -34,6 +37,15 @@ class FirCubit extends Cubit<FirState> {
   getFIRs()async{
     emit(FirLoading());
     final result = await getFIRsUseCase.call();
+    result.fold(
+      (l) => emit(FirError(l.message)),
+      (r) => emit(FirLoaded(r)),
+    );
+  }
+
+  getMyFIR()async{
+    emit(FirLoading());
+    final result = await getMyFIRsUseCase.call();
     result.fold(
       (l) => emit(FirError(l.message)),
       (r) => emit(FirLoaded(r)),

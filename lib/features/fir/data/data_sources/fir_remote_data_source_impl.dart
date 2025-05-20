@@ -5,6 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:safepak/core/common/classes/failure.dart';
 import 'package:safepak/core/common/classes/no_params.dart';
 import 'package:safepak/core/services/upload_service.dart';
+import 'package:safepak/core/services/user_singleton.dart';
+import 'package:safepak/features/authentication/domain/entities/user_entity.dart';
 import 'package:safepak/features/fir/data/models/fir_model.dart';
 import 'package:safepak/features/fir/domain/entities/fir_entity.dart';
 import 'fir_remote_data_source.dart';
@@ -75,6 +77,25 @@ class FirRemoteDataSourceImpl extends FirRemoteDataSource {
         await query.docs.first.reference.update(FIRModel.fromEntity(fir).toMap());
       }
       return Right(NoParams());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<FIREntity>>> getMyFIR() async {
+    try {
+      UserEntity user = UserSingleton().user!;
+      
+      final query = await firebaseFireStore
+          .collection('fir_reports')
+          .where('userId', isEqualTo: user.uid)
+          .get();
+      List<FIREntity> firs = [];
+      for (var doc in query.docs) {
+        firs.add(FIRModel.fromMap(doc.data()));
+      }
+      return Right(firs);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }

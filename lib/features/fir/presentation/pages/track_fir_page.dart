@@ -4,34 +4,30 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safepak/core/configs/theme/app_colors.dart';
 import 'package:safepak/dependency_injection.dart';
-import 'package:safepak/features/criminal_alert/presentation/cubit/alert_cubit.dart';
-import 'package:safepak/features/criminal_alert/presentation/widgets/action_button.dart';
-import 'package:safepak/features/criminal_alert/presentation/widgets/admin/criminal_card.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:safepak/features/fir/presentation/widgets/user_fir_card.dart';
 
-class AdminCriminalAlertsPage extends StatelessWidget {
-  const AdminCriminalAlertsPage({super.key});
+import '../cubit/fir_cubit.dart';
+
+class TrackFirPage extends StatelessWidget {
+  const TrackFirPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<AlertCubit>()..fetchAllAlerts(),
+      create: (context) => sl<FirCubit>()..getFIRs(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Criminal Alerts',
-          ),
-          elevation: 0,
         ),
         body: RefreshIndicator(
           color: AppColors.primaryColor,
           onRefresh: () async {
-            context.read<AlertCubit>().fetchAllAlerts();
+            context.read<FirCubit>().getMyFIR();
             return Future.delayed(const Duration(milliseconds: 500));
           },
-          child: BlocBuilder<AlertCubit, AlertState>(
+          child: BlocBuilder<FirCubit, FirState>(
             builder: (context, state) {
-              if (state is AlertLoading) {
+              if (state is FirLoading) {
                 return const Center(
                   child: SizedBox(
                     width: 50,
@@ -44,21 +40,21 @@ class AdminCriminalAlertsPage extends StatelessWidget {
                   ),
                 );
               }
-              if (state is AlertError) {
+              if (state is FirError) {
                 Fluttertoast.showToast(
-                  msg: 'Error fetching alerts: ${state.message}',
+                  msg: 'Error fetching FIRs: ${state.message}',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.BOTTOM,
                   backgroundColor: Colors.red,
                   textColor: Colors.white,
                   fontSize: 16.0,
                 );
-                return const Center(child: Text('Error loading alerts'));
+                return const Center(child: Text('Error loading FIRs'));
               }
-              if (state is AlertsLoaded && state.alerts.isEmpty) {
-                return const Center(child: Text('No alerts found'));
+              if (state is FirLoaded && state.firs.isEmpty) {
+                return const Center(child: Text('No FIRs found'));
               }
-              if (state is AlertsLoaded) {
+              if (state is FirLoaded) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
@@ -67,7 +63,7 @@ class AdminCriminalAlertsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'Criminal Alerts',
+                          'Track Your FIRs',
                           style:
                               Theme.of(context).textTheme.headlineLarge?.copyWith(
                                     color: AppColors.primaryColor,
@@ -75,43 +71,37 @@ class AdminCriminalAlertsPage extends StatelessWidget {
                                   ),
                         ),
                         Text(
-                          'Nearby suspicious activities',
+                          'Monitor your submitted complaints',
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: Colors.grey.shade600,
                                   ),
                         ),
                         const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CriminalActionButton(
-                                width: 200,
-                                label: 'Add new Criminal',
-                                onPressed: () {
-                                  context.push(
-                                      '/criminal_alert/add_criminal_alert');
-                                },
-                                color: AppColors.primaryColor,
-                                textColor: Colors.white,
-                              ),
-                            ],
-                          ),
-                        ),
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.alerts.length,
+                          itemCount: state.firs.length,
                           itemBuilder: (context, index) {
-                            final alert = state.alerts[index];
+                            final fir = state.firs[index];
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 12.0),
-                              child: AdminCriminalCard(
-                                label: alert.title,
-                                description: alert.description,
-                                location: alert.city,
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.push(
+                                    '/fir_details',
+                                    extra: fir,
+                                  );
+                                },
+                                child: UserFirCard(
+                                  id: fir.firId!,
+                                  complaintType: fir.complaintType!,
+                                  description: fir.description!,
+                                  location: fir.location!,
+                                  dateTime: fir.dateTime.toString(),
+                                  status: fir.status!,
+                                  evidencePaths: fir.evidencePaths!,
+                                ),
                               ),
                             );
                           },

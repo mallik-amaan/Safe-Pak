@@ -120,7 +120,7 @@ class _FirRegistrationPageState extends State<FirRegistrationPage> {
       userName: user.name,
       userEmail: user.email,
       userPhone: user.phoneNumber,
-      status: "pending",
+      status: "Pending",
     );
     context.read<FirCubit>().submitFir(fir);
   }

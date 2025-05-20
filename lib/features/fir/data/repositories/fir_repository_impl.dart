@@ -22,5 +22,8 @@ class FirRepositoryImpl extends FirRepository{
 
   @override
   Future<Either<Failure, NoParams>> updateFIR(FIREntity fir) => sl<FirRemoteDataSource>().updateFIR(fir);
+  
+  @override
+  Future<Either<Failure, List<FIREntity>>> getMyFIR() => sl<FirRemoteDataSource>().getMyFIR();
 
 }

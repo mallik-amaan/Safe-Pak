@@ -9,32 +9,24 @@ import 'package:safepak/core/configs/theme/app_colors.dart';
 import 'package:safepak/core/services/location_service.dart';
 import 'package:safepak/dependency_injection.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:safepak/features/criminal_alert/presentation/cubit/alert_cubit.dart';
 
-import '../../../../fir/domain/entities/fir_entity.dart';
-import '../../../../fir/presentation/cubit/fir_cubit.dart';
+import '../../../domain/entities/criminal_alert_entity.dart';
 
 class AddCriminalAlert extends StatefulWidget {
   const AddCriminalAlert({super.key});
 
   @override
-  State<AddCriminalAlert> createState() => _AddAlertPageState();
+  State<AddCriminalAlert> createState() => _AddCriminalAlertState();
 }
 
-class _AddAlertPageState extends State<AddCriminalAlert> {
+class _AddCriminalAlertState extends State<AddCriminalAlert> {
+  final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final _locationController = TextEditingController();
+  final _cityController = TextEditingController();
   final _dateTimeController = TextEditingController();
-  String? _selectedType;
-  List<String> _evidencePaths = [];
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final List<DropdownMenuItem<String>> _complaintTypes = const [
-    DropdownMenuItem(value: "theft", child: Text("Theft")),
-    DropdownMenuItem(value: "assault", child: Text("Assault")),
-    DropdownMenuItem(value: "fault", child: Text("Fault")),
-    DropdownMenuItem(value: "robbery", child: Text("Robbery")),
-    DropdownMenuItem(value: "other", child: Text("Other")),
-  ];
+  List<String> _imagePaths = [];
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -45,8 +37,9 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
 
   @override
   void dispose() {
+    _titleController.dispose();
     _descriptionController.dispose();
-    _locationController.dispose();
+    _cityController.dispose();
     _dateTimeController.dispose();
     super.dispose();
   }
@@ -58,10 +51,10 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
     );
     if (result != null && result.files.isNotEmpty) {
       setState(() {
-        _evidencePaths = result.files.map((file) => file.path!).toList();
+        _imagePaths = result.files.map((file) => file.path!).toList();
       });
       Fluttertoast.showToast(
-        msg: "${_evidencePaths.length} file(s) uploaded",
+        msg: "${_imagePaths.length} file(s) selected",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: AppColors.primaryColor,
@@ -107,31 +100,32 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
   }
 
   void _handleSubmit() {
-    final FIREntity fir = FIREntity(
-      complaintType: _selectedType!,
+    final alert = CriminalAlertEntity(
+      id: '', // ID generated in AlertCubit
+      title: _titleController.text,
       description: _descriptionController.text,
-      location: _locationController.text,
-      dateTime: DateTime.parse(_dateTimeController.text.replaceAll(' ', 'T')),
-      evidencePaths: _evidencePaths,
+      images: _imagePaths,
+      city: _cityController.text,
+      createdAt: DateTime.parse(_dateTimeController.text.replaceAll(' ', 'T')),
     );
-    context.read<FirCubit>().submitFir(fir);
+    context.read<AlertCubit>().createAlert(alert);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FirCubit, FirState>(
+    return BlocConsumer<AlertCubit, AlertState>(
       listener: (context, state) {
-        if (state is FirSubmitted) {
+        if (state is AlertAdded) {
           Fluttertoast.showToast(
-            msg: "Alert submitted successfully!",
+            msg: "Criminal alert submitted successfully!",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: AppColors.primaryColor,
             textColor: Colors.white,
             fontSize: 16.0,
           );
-          context.go('/home');
-        } else if (state is FirError) {
+          context.go('/admin_home');
+        } else if (state is AlertError) {
           Fluttertoast.showToast(
             msg: "Error: ${state.message}",
             toastLength: Toast.LENGTH_SHORT,
@@ -143,10 +137,13 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
         }
       },
       builder: (context, state) {
-        final isSubmitting = state is FirLoading;
+        final isSubmitting = state is AlertLoading;
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Add Alert"),
+            title: const Text(
+              'Add Criminal Alert',
+            ),
+            elevation: 0,
           ),
           body: SingleChildScrollView(
             child: Form(
@@ -157,26 +154,24 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    DropdownButtonFormField<String>(
+                    TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please select an alert type';
+                          return 'Please enter a title';
                         }
                         return null;
                       },
-                      value: _selectedType,
-                      hint: const Text('Select Alert Type'),
-                      items: _complaintTypes,
-                      onChanged: isSubmitting
-                          ? null
-                          : (value) {
-                              setState(() {
-                                _selectedType = value;
-                              });
-                            },
+                      controller: _titleController,
+                      enabled: !isSubmitting,
+                      cursorColor: AppColors.primaryColor,
                       decoration: InputDecoration(
+                        hintText: 'Alert Title',
                         filled: true,
                         fillColor: AppColors.lightGrey,
+                        prefixIcon: const Icon(
+                          Icons.title,
+                          color: AppColors.secondaryColor,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
@@ -201,7 +196,7 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                         filled: true,
                         fillColor: AppColors.lightGrey,
                         prefixIcon: const Icon(
-                          Icons.warning_amber_outlined,
+                          Icons.description,
                           color: AppColors.secondaryColor,
                         ),
                         border: OutlineInputBorder(
@@ -241,20 +236,20 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please select a location';
+                          return 'Please select a city';
                         }
                         return null;
                       },
-                      controller: _locationController,
+                      controller: _cityController,
                       readOnly: true,
                       enabled: !isSubmitting,
                       cursorColor: AppColors.primaryColor,
                       decoration: InputDecoration(
-                        hintText: 'Location',
+                        hintText: 'City',
                         filled: true,
                         fillColor: AppColors.lightGrey,
                         prefixIcon: const Icon(
-                          Icons.location_on,
+                          Icons.location_city,
                           color: AppColors.secondaryColor,
                         ),
                         border: OutlineInputBorder(
@@ -268,12 +263,10 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                                   final placemark = await sl<LocationService>()
                                       .getCurrentLocation();
                                   if (placemark != null) {
-                                    final location =
-                                        "${placemark.name}, ${placemark.subLocality}, ${placemark.locality}";
-                                    _locationController.text = location;
+                                    final city = placemark.locality ?? 'Unknown';
+                                    _cityController.text = city;
                                     Fluttertoast.showToast(
-                                      msg:
-                                          "Location: ${placemark.locality}, ${placemark.country}",
+                                      msg: "City: $city",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       backgroundColor: AppColors.primaryColor,
@@ -282,7 +275,7 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                                     );
                                   } else {
                                     Fluttertoast.showToast(
-                                      msg: "Unable to get location",
+                                      msg: "Unable to get city",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       backgroundColor: Colors.red,
@@ -318,9 +311,9 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                                 "Tap to upload photo or video",
                                 style: TextStyle(fontSize: 16),
                               ),
-                              if (_evidencePaths.isNotEmpty)
+                              if (_imagePaths.isNotEmpty)
                                 Text(
-                                  "${_evidencePaths.length} file(s) uploaded",
+                                  "${_imagePaths.length} file(s) selected",
                                   style: const TextStyle(
                                       fontSize: 14, color: Colors.grey),
                                 ),
@@ -331,7 +324,7 @@ class _AddAlertPageState extends State<AddCriminalAlert> {
                     ),
                     const SizedBox(height: 20),
                     ButtonWidget(
-                      content: state is FirLoading
+                      content: state is AlertLoading
                           ? const Center(
                               child: LoadingIndicator(
                                 indicatorType: Indicator.ballPulse,
