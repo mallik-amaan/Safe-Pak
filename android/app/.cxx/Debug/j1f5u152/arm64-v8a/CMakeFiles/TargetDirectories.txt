@@ -1,0 +1,2 @@
+/home/hannan-yousaf/Desktop/mad/Safe-Pak/android/app/.cxx/Debug/j1f5u152/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/hannan-yousaf/Desktop/mad/Safe-Pak/android/app/.cxx/Debug/j1f5u152/arm64-v8a/CMakeFiles/rebuild_cache.dir
