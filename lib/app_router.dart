@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:safepak/features/authentication/presentation/pages/create_account_page_1.dart';
 import 'package:safepak/features/authentication/presentation/pages/create_account_page_2.dart';
 import 'package:safepak/features/authentication/presentation/pages/success_page.dart';
+import 'package:safepak/features/chatbot/presentation/screens/chat_screen.dart';
 import 'package:safepak/features/criminal_alert/presentation/screens/criminal_alert.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_page.dart';
 import 'package:safepak/features/emeregency_sos/presentation/screens/emergency_details.dart';
@@ -63,5 +64,6 @@ final GoRouter appRouter = GoRouter(
       path: '/criminal_alert',
       builder: (context, state) => CriminalAlertPage(),
     ),
+    GoRoute(path: '/ai-chat', builder: (context, state) => ChatScreen()),
   ],
 );
